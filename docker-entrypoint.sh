@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# Database Migration Run ခြင်း
-php artisan migrate --force
 
 # Config / Route Caching ပြုလုပ်ခြင်း
 php artisan config:cache

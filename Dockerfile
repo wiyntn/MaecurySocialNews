@@ -47,6 +47,9 @@ RUN mkdir -p storage/framework/cache/data \
 # PHP Dependencies တပ်ဆင်ခြင်း
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-scripts
 
+# Project ထဲမှ supervisord.conf ကို Container ထဲသို့ Copy ကူးပေးခြင်း
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
 # Dummy Env Keys များပေး၍ Artisan Caches များ ဆောက်ခြင်း
 ENV BROADCAST_DRIVER=log
 ENV PUSHER_APP_KEY=dummy
