@@ -13,10 +13,3 @@ ColibriPlus is a robust social media script built from scratch using Laravel 11 
 
 ### Software author
 
-Mansur Terla (UI/UX designer & Full stack web developer)
-
-- Instagram: https://www.instagram.com/mansur_terla
-- Website: https://www.terla.me
-- Telegram Direct: https://t.me/mansurtl_contact
-- WhatsApp: https://t.me/mansurtl_contact
-- Email: mansurtl.contact@gmail.com
