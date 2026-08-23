@@ -1,12 +1,15 @@
-# Stage 1: Vue JS (Vite) Assets များကို Build လုပ်ခြင်း
+# Stage 1: Vue JS (Vite) Assets
 FROM node:20-alpine as frontend
 WORKDIR /app
-COPY package*.json ./
 
-# --legacy-peer-deps ထည့်သွင်းပေးရန်
+COPY package*.json ./
 RUN npm install --legacy-peer-deps
 
 COPY . .
+
+# build.num ရေးနိုင်အောင် storage/frontend folder ဆောက်ပေးခြင်း
+RUN mkdir -p storage/frontend
+
 RUN npm run build
 
 # Stage 2: Laravel PHP Environment ပြင်ဆင်ခြင်း
