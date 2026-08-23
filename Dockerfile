@@ -2,7 +2,10 @@
 FROM node:20-alpine as frontend
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+
+# --legacy-peer-deps ထည့်သွင်းပေးရန်
+RUN npm install --legacy-peer-deps
+
 COPY . .
 RUN npm run build
 
