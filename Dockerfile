@@ -41,7 +41,18 @@ RUN mkdir -p storage/framework/cache/data \
 
     # PHP Dependencies တပ်ဆင်ခြင်း
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-scripts
-# Auto discover နဲ့ cache များကို Build ပြီးမှ ရှင်းပေးခြင်း
+
+# Build time အတွက် ယာယီ Environment Variables များ သတ်မှတ်ခြင်း
+ENV BROADCAST_DRIVER=log
+ENV PUSHER_APP_KEY=dummy
+ENV PUSHER_APP_SECRET=dummy
+ENV PUSHER_APP_ID=dummy
+ENV REVERB_APP_KEY=dummy
+ENV REVERB_APP_SECRET=dummy
+ENV REVERB_APP_ID=dummy
+
+
+# Auto discover နဲ့ Cache ရှင်းပေးခြင်း
 RUN php artisan package:discover --ansi \
     && php artisan config:clear \
     && php artisan route:clear
