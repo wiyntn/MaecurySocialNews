@@ -30,14 +30,15 @@ COPY . .
 COPY --from=frontend /app/public/build ./public/build
 
 # 1. Permission မရှိသည့် Error ကိုဖြေရှင်းရန် Folder များဆောက်၍ Permission ပေးခြင်း
-RUN mkdir -p storage/framework/cache/data \
-    storage/framework/sessions \
-    storage/framework/views \
-    storage/logs \
-    bootstrap/cache \
-    && chmod -R 777 storage bootstrap/cache
+# Storage & Cache Permissions
+RUN chmod -R 777 storage bootstrap/cache
+
+# Auto discover နဲ့ cache များကို Build ပြီးမှ ရှင်းပေးခြင်း
+RUN php artisan package:discover --ansi \
+    && php artisan config:clear \
+    && php artisan route:clear
 # PHP Dependencies တပ်ဆင်ခြင်း
-RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-scripts
 
 # Storage & Cache အတွက် Permission ပေးခြင်း
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
