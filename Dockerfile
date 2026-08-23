@@ -29,6 +29,13 @@ WORKDIR /var/www/html
 COPY . .
 COPY --from=frontend /app/public/build ./public/build
 
+# 1. Permission မရှိသည့် Error ကိုဖြေရှင်းရန် Folder များဆောက်၍ Permission ပေးခြင်း
+RUN mkdir -p storage/framework/cache/data \
+    storage/framework/sessions \
+    storage/framework/views \
+    storage/logs \
+    bootstrap/cache \
+    && chmod -R 777 storage bootstrap/cache
 # PHP Dependencies တပ်ဆင်ခြင်း
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
