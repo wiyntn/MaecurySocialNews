@@ -1,0 +1,38 @@
+# Stage 1: Vue JS (Vite) Assets များကို Build လုပ်ခြင်း
+FROM node:20-alpine as frontend
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Stage 2: Laravel PHP Environment ပြင်ဆင်ခြင်း
+FROM php:8.3-fpm-alpine
+
+# System Dependencies & PHP Extensions တပ်ဆင်ခြင်း
+RUN apk add --no-cache nginx supervisor mysql-client libpng-dev libjpeg-turbo-dev freetype-dev libzip-dev zip unzip git
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd pdo pdo_mysql zip bcmath opcache
+
+# Composer တပ်ဆင်ခြင်း
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
+
+# Source Code များ ကူးယူခြင်း
+COPY . .
+COPY --from=frontend /app/public/build ./public/build
+
+# PHP Dependencies တပ်ဆင်ခြင်း
+RUN composer install --no-dev --optimize-autoloader
+
+# Storage & Cache အတွက် Permission ပေးခြင်း
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Configurations များ ကူးယူခြင်း
+COPY docker/nginx/default.conf /etc/nginx/http.d/default.conf
+COPY docker/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+EXPOSE 80
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
