@@ -30,7 +30,7 @@ COPY . .
 COPY --from=frontend /app/public/build ./public/build
 
 # PHP Dependencies တပ်ဆင်ခြင်း
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
 # Storage & Cache အတွက် Permission ပေးခြင်း
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
