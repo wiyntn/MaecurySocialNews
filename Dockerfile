@@ -51,7 +51,10 @@ ENV REVERB_APP_KEY=dummy
 ENV REVERB_APP_SECRET=dummy
 ENV REVERB_APP_ID=dummy
 
-
+# Supervisor အတွက် လိုအပ်သော Log Folder များ ဆောက်ပေးခြင်း
+RUN mkdir -p /var/log/supervisor /var/run/supervisor \
+    && chmod -R 777 /var/log/supervisor /var/run/supervisor
+    
 # Auto discover နဲ့ Cache ရှင်းပေးခြင်း
 RUN php artisan package:discover --ansi \
     && php artisan config:clear \
