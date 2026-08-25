@@ -1,10 +1,12 @@
 #!/bin/sh
 
-
-# Config / Route Caching ပြုလုပ်ခြင်း
+# Laravel Caches များကို ရှင်းထုတ်ပြီး ပြန်ဆောက်ခြင်း
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-# Nginx နှင့် PHP-FPM / Supervisor ကို စတင်ခြင်း
+# Database Migration ခေါ်ရန် (လိုအပ်ပါက)
+php artisan migrate --force
+
+# Supervisor/Nginx ကို စတင်ခြင်း
 exec supervisord -c /etc/supervisor/conf.d/supervisord.conf
