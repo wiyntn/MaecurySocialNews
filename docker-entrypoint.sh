@@ -1,12 +1,12 @@
 #!/bin/sh
 
-# Laravel Caches များကို ရှင်းထုတ်ပြီး ပြန်ဆောက်ခြင်း
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
+# Route crash မဖြစ်အောင် cache အစား clear ပဲ အရင်လုပ်ပါ
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
 
-# Database Migration ခေါ်ရန် (လိုအပ်ပါက)
+# Database migration (Database ချိတ်ဆက်ပြီးမှ အလုပ်လုပ်မည်)
 php artisan migrate --force
 
-# Supervisor/Nginx ကို စတင်ခြင်း
+# Supervisord စတင်ခြင်း
 exec supervisord -c /etc/supervisord.conf
