@@ -6,7 +6,6 @@ import { createPinia } from 'pinia';
 import { postDeleteListener } from '@D/plugins/pinia/post/delete-listener.js';
 
 import outsideClickDirective from '@D/core/directives/click.outside.js';
-
 import Router from '@D/router/index.js';
 import LanguageMessages from '@/lang/index.js';
 
@@ -27,8 +26,14 @@ window.BackendEmbeds = window.BackendEmbeds || {
 };
 window.HIDE_AUTHOR_ATTRIBUTION = window.HIDE_AUTHOR_ATTRIBUTION || false;
 
+// 1. Vue App Instance ဖန်တီးပါ
 const Application = createApp(ColibriPlusDesktop);
 
+// 2. Pinia Instance ဖန်တီးပြီး Plugin တပ်ဆင်ပါ
+const pinia = createPinia();
+pinia.use(postDeleteListener);
+
+// 3. i18n Initialization Function
 async function initializeI18n() {
     const messages = await LanguageMessages.messages();
     const currentLocale = window.BackendEmbeds?.locale || LanguageMessages.langLocale || 'en';
@@ -47,19 +52,16 @@ async function initializeI18n() {
 
 const ColibriPlusI18n = await initializeI18n();
 
-const pinia = createPinia();
-pinia.use(postDeleteListener);
+// -------------------------------------------------------------
+// Plugins Registration (Pinia ကို Router ထက် အရင် Use ရမည်)
+// -------------------------------------------------------------
+Application.use(pinia); // 1. Pinia အရင်
+Application.use(Router); // 2. Router ဒုတိယ
+Application.use(globalProperties);
+Application.use(PrimeVue, { unstyled: true });
+Application.use(ColibriPlusI18n);
 
 Application.directive('outside-click', outsideClickDirective);
-
-Application.use(globalProperties);
-Application.use(pinia);
-Application.use(Router);
-Application.use(PrimeVue, {
-    unstyled: true
-});
-
-Application.use(ColibriPlusI18n);
 
 // -------------------------------------------------------------
 // Global Components Registration
@@ -92,4 +94,5 @@ Application.component('PrimarySpinAnimation', defineAsyncComponent(() => {
     return import("@D/components/general/animations/PrimarySpinAnimation.vue");
 }));
 
+// 4. App ကို Mount လုပ်ပါ
 Application.mount("#colibriplus-desktop-app");
