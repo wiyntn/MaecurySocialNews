@@ -49,7 +49,8 @@ RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-
 
 # Project ထဲမှ supervisord.conf ကို Container ထဲသို့ Copy ကူးပေးခြင်း
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
+# Project ထဲမှ supervisord.conf ကို Container ထဲသို့ Copy ကူးပေးခြင်း
+COPY supervisord.conf /etc/supervisord.conf
 COPY . .
 # Nginx Configuration ကို Container ထဲသို့ Copy ကူးပေးခြင်း
 COPY --from=frontend /app/public/build ./public/build

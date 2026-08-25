@@ -9,4 +9,4 @@ php artisan view:cache
 php artisan migrate --force
 
 # Supervisor/Nginx ကို စတင်ခြင်း
-exec supervisord -c /etc/supervisor/conf.d/supervisord.conf
+exec supervisord -c /etc/supervisord.conf
