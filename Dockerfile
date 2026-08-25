@@ -50,8 +50,9 @@ RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-
 # Project ထဲမှ supervisord.conf ကို Container ထဲသို့ Copy ကူးပေးခြင်း
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+COPY . .
 # Nginx Configuration ကို Container ထဲသို့ Copy ကူးပေးခြင်း
-COPY nginx.conf /etc/nginx/http.d/default.conf
+COPY --from=frontend /app/public/build ./public/build
 
 # Dummy Env Keys များပေး၍ Artisan Caches များ ဆောက်ခြင်း
 ENV BROADCAST_DRIVER=log
