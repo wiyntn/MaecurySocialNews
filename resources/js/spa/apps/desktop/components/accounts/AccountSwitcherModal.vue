@@ -47,7 +47,7 @@
     import PrimaryIconButton from '@D/components/inter-ui/buttons/PrimaryIconButton.vue';
     import PrimaryPillButton from '@D/components/inter-ui/buttons/PrimaryPillButton.vue';
     import LinkedAccountItem from '@D/components/accounts/parts/LinkedAccountItem.vue';
-    import PrimarySpinAnimation from '@D/components/general/PrimarySpinAnimation.vue';
+    import PrimarySpinAnimation from '@D/components/general/animations/PrimarySpinAnimation.vue';
     import Border from '@D/components/general/Border.vue';
 
     export default defineComponent({
