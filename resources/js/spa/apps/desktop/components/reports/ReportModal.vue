@@ -58,10 +58,9 @@
     import ModalHeader from '@D/components/general/modals/parts/ModalHeader.vue';
     import ReasonItem from '@D/components/reports/parts/ReasonItem.vue';
     import PrimaryPillButton from '@D/components/inter-ui/buttons/PrimaryPillButton.vue';
-    import SvgIcon from '@D/components/general/svg/SvgIcon.vue';
+    import SvgIcon from '@D/components/icons/SvgIcon.vue';
     import Border from '@D/components/general/Border.vue';
-    import PrimaryDotsAnimation from '@D/components/general/PrimaryDotsAnimation.vue';
-
+import PrimaryDotsAnimation from '@D/components/general/animations/PrimaryDotsAnimation.vue';
     export default defineComponent({
         setup: function() {
             const state = reactive({
