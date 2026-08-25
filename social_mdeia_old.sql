@@ -1657,7 +1657,7 @@ ALTER TABLE `ads`
 --
 ALTER TABLE `blacklists`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `blacklists_blacklistable_unique` (`blacklistable`),
+  ADD UNIQUE KEY `blacklists_blacklistable_unique` (`blacklistable`(191)),
   ADD KEY `blacklists_admin_id_foreign` (`admin_id`);
 
 --
@@ -1665,7 +1665,7 @@ ALTER TABLE `blacklists`
 --
 ALTER TABLE `bookmarks`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `user_bookmark_unique` (`user_id`,`bookmarkable_id`,`bookmarkable_type`);
+  ADD UNIQUE KEY `user_bookmark_unique` (`user_id`,`bookmarkable_id`,`bookmarkable_type`(100));
 
 --
 -- Indexes for table `business_accounts`
