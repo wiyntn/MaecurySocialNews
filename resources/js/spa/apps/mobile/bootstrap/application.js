@@ -31,7 +31,7 @@ Application.component('PrimarySpinAnimation', defineAsyncComponent(() =>
     import('@D/components/general/animations/PrimarySpinAnimation.vue')
 ));
 Application.component('Border', defineAsyncComponent(() => 
-    import('@D/components/general/border/Border.vue')
+    import('@D/components/general/Border.vue')
 ));
 Application.component('PrimaryTransition', defineAsyncComponent(() => 
     import('@D/components/general/transitions/PrimaryTransition.vue')
