@@ -1,4 +1,7 @@
 <template>
+    <!-- 1. Global Axios Interceptor Loader Component ကို ထည့်သွင်းခြင်း -->
+    <GlobalLoader />
+
     <template v-if="appLoading">
         <div class="flex-center w-screen h-screen relative">
             <span class="absolute top-6 left-6 text-par-m text-lab-pr">{{ $t('labels.hi_there') }}</span>
@@ -27,17 +30,20 @@
     import { defineComponent, computed, onMounted, onUnmounted, ref, defineAsyncComponent } from 'vue';
     import { useRoute } from 'vue-router';
     import { useAppStore } from '@D/store/app/app.store.js';
+    import { useLoaderStore } from '@/stores/loader.store.js'; // Loader Store ထည့်ရန်
 
     import { Layouts } from '@D/core/constants/layouts.js';
     
     import ApplicationMainLayout from '@D/layouts/ApplicationMainLayout.vue';
     import NetworkStatusBar from '@D/components/layout/parts/network/NetworkStatusBar.vue';
-    
+    import GlobalLoader from '@/apps/desktop/components/general/GlobalLoader.vue'; // Global Loader Import
+
     export default defineComponent({
         setup: function(_, context) {
             const appLoading = ref(true);
             const route = useRoute();
             const appStore = useAppStore();
+            const loaderStore = useLoaderStore(); // Store Instance
 
             const layoutType = computed(() => {
                 return route.meta.layout;
@@ -80,6 +86,7 @@
 
             return {
                 appLoading: appLoading,
+                loaderStore: loaderStore,
                 isMainLayout: computed(() => {
                     return layoutType.value == Layouts.MAIN;
                 }),
@@ -98,6 +105,7 @@
             }
         },
         components: {
+            GlobalLoader: GlobalLoader, // Component Register လုပ်ခြင်း
             NetworkStatusBar: NetworkStatusBar,
             ApplicationMainLayout: ApplicationMainLayout,
             ApplicationStoriesLayout: defineAsyncComponent(() => {
