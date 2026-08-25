@@ -7,6 +7,13 @@
         </div>
     </div>
 
+    <div id="app">
+        <!-- Global Loader Animation -->
+        <GlobalLoader />
+
+        <!-- API Request/Initial Fetching မပြီးမချင်း Main View ကို မပြပါနဲ့ -->
+        <router-view v-if="!loaderStore.isLoading" />
+    </div>
     <ToastNotification></ToastNotification>
 
     <PublicationEditorModal></PublicationEditorModal>
@@ -39,6 +46,10 @@
 </template>
 
 <script>
+import { useLoaderStore } from '@/stores/loader.store.js';
+import GlobalLoader from '@/apps/desktop/components/general/GlobalLoader.vue';
+
+const loaderStore = useLoaderStore();
     import { defineComponent, watch, ref, computed, onMounted, defineAsyncComponent } from 'vue';
     import { useRoute } from 'vue-router';
     import { useStoriesEditorStore } from '@D/store/stories/editor.store.js';
