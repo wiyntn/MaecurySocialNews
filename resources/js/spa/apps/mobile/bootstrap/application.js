@@ -28,7 +28,7 @@ const Application = createApp(ColibriPlusMobile);
 // ၃။ Component တွေထဲမှာ Import မလုပ်ဘဲ သုံးထားတဲ့ Components များကို Global Register လုပ်ခြင်း
 // -------------------------------------------------------------
 Application.component('PrimarySpinAnimation', defineAsyncComponent(() => 
-    import('@D/components/general/loaders/PrimarySpinAnimation.vue')
+    import('@D/components/general/animations/PrimarySpinAnimation.vue')
 ));
 Application.component('Border', defineAsyncComponent(() => 
     import('@D/components/general/border/Border.vue')
