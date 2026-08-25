@@ -27,7 +27,15 @@
 
     <ReportModal></ReportModal>
 
-    <OnboardingTips></OnboardingTips>
+    <!-- Async Component များကို Suspense / Conditional Rendering ဖြင့် Safe ဖြစ်အောင် ထိန်းပေးခြင်း -->
+    <Suspense>
+        <template #default>
+            <OnboardingTips></OnboardingTips>
+        </template>
+        <template #fallback>
+            <div></div>
+        </template>
+    </Suspense>
 </template>
 
 <script>
@@ -47,7 +55,6 @@
     import PublicationEditorModal from '@D/components/timeline/modals/PublicationEditorModal.vue';
     import AccountSwitcherModal from '@D/components/accounts/AccountSwitcherModal.vue';
 
-
     export default defineComponent({
         setup: function() {
             const storiesEditorStore = useStoriesEditorStore();
@@ -55,21 +62,24 @@
             const route = useRoute();
             const rightOffset = ref(false);
             
-            watch(route, function() {
-                rightOffset.value = route.meta.rightOffset;
-            });
+            watch(
+                () => route.meta?.rightOffset,
+                (newVal) => {
+                    rightOffset.value = !!newVal;
+                }
+            );
 
-            onMounted(async () => {
-                rightOffset.value = route.meta.rightOffset;
+            onMounted(() => {
+                rightOffset.value = !!route.meta?.rightOffset;
             });
 
             return {
                 rightOffset: rightOffset,
                 openStoriesEditorModal: computed(() => {
-                    return storiesEditorStore.isOpen;
+                    return storiesEditorStore?.isOpen ?? false;
                 }),
                 openNotificationsModal: computed(() => {
-                    return notificationsStore.isOpen;
+                    return notificationsStore?.isOpen ?? false;
                 })
             }
         },

@@ -14,19 +14,33 @@ import ColibriPlusDesktop from '@D/bootstrap/boot/ColibriPlusDesktop.vue';
 import PrimeVue from 'primevue/config';
 import globalProperties from '@D/plugins/global.properties.js';
 
+// -------------------------------------------------------------
+// Global Variables Fallback Injection (Sidebar & Layouts Error Fix)
+// -------------------------------------------------------------
+window.BackendEmbeds = window.BackendEmbeds || {
+    locale: 'en',
+    config: {
+        app: {
+            name: 'ColibriPlus'
+        }
+    }
+};
+window.HIDE_AUTHOR_ATTRIBUTION = window.HIDE_AUTHOR_ATTRIBUTION || false;
+
 const Application = createApp(ColibriPlusDesktop);
 
 async function initializeI18n() {
     const messages = await LanguageMessages.messages();
+    const currentLocale = window.BackendEmbeds?.locale || LanguageMessages.langLocale || 'en';
 
     return createI18n({
-        locale: LanguageMessages.langLocale,
+        locale: LanguageMessages.langLocale || currentLocale,
         warnHtmlInMessage: false,
         warnHtmlMessage: false,
         legacy: false,
-        fallbackLocale: LanguageMessages.langLocale,
+        fallbackLocale: LanguageMessages.langLocale || currentLocale,
         messages: {
-            [BackendEmbeds.locale]: messages
+            [currentLocale]: messages
         }
     });
 }
@@ -47,6 +61,9 @@ Application.use(PrimeVue, {
 
 Application.use(ColibriPlusI18n);
 
+// -------------------------------------------------------------
+// Global Components Registration
+// -------------------------------------------------------------
 Application.component('Border', defineAsyncComponent(() => {
     return import("@D/components/general/Border.vue");
 }));

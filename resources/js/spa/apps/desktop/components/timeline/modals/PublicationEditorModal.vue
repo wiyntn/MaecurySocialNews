@@ -29,31 +29,27 @@
 
             const postEditorStore = usePostEditorStore();
             const authStore = useAuthStore();
-            const userData = computed(() => {
-                return authStore.userData;
-            });
 
             const openEditor = (data) => {
                 state.isOpen = true;
                 
-                if(data) {
-                    if(data.initialType) {
+                if (data) {
+                    if (data.initialType) {
                         postEditorStore.initialType = data.initialType;
                     }
     
-                    if(data.mentionName) {
+                    if (data.mentionName) {
                         postEditorStore.mentionName = data.mentionName;
                     }
     
-                    if(data.quotePostId) {
+                    if (data.quotePostId) {
                         postEditorStore.quotePostId = data.quotePostId;
                     }
                 }
             };
 
-            const closeEditor = (data) => {
+            const closeEditor = () => {
                 state.isOpen = false;
-
                 postEditorStore.finishEditing();
             };
 
@@ -69,9 +65,12 @@
 
             return {
                 state: state,
-                ME: {
-                    name: userData.value.name
-                },
+                // Reactive Computed Property ဖြင့် Safe ဖြစ်အောင် ပြင်ဆင်ခြင်း
+                ME: computed(() => {
+                    return {
+                        name: authStore?.userData?.name ?? ''
+                    };
+                }),
                 closeEditor: closeEditor
             };
         },

@@ -15,11 +15,13 @@
 
             return {
                 showSoundbar: computed(() => {
-                    if (uiStore.cheatSheet.isOpen) {
+                    // cheatSheet panel ပွင့်နေပါက soundbar ကို ပိတ်မည်
+                    if (uiStore?.cheatSheet?.isOpen) {
                         return false;
                     }
 
-                    return audioStore.postAudioData !== null;
+                    // audioStore သို့မဟုတ် postAudioData မရှိသေးပါက false ကို Safe Return ပြန်မည်
+                    return (audioStore?.postAudioData ?? null) !== null;
                 })
             };
         },

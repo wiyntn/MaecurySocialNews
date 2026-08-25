@@ -6,15 +6,16 @@ function useCheatSheet() {
     const uiStore = useUIStore();
 
     const openCheatSheetPanel = () => {
-        uiStore.openCheatSheet();
+        uiStore?.openCheatSheet();
     };
 
     const closeCheatSheetPanel = () => {
-        uiStore.closeCheatSheet();
+        uiStore?.closeCheatSheet();
     };
 
     const isOpen = computed(() => {
-        return uiStore.cheatSheet.isOpen;
+        // uiStore.cheatSheet သို့မဟုတ် isOpen မရှိခဲ့လျှင် false ကို Safe ပြန်ပေးမည်
+        return uiStore?.cheatSheet?.isOpen ?? false;
     });
 
     return {

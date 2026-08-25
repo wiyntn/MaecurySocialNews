@@ -1,12 +1,13 @@
 <template>
-    <div v-if="isOpen" class="fixed inset-0 z-40 bg-black/15 backdrop-blur-xs"></div>
+    <div v-if="isOpen" v-on:click="closeCheatSheetPanel" class="fixed inset-0 z-40 bg-black/15 backdrop-blur-xs cursor-pointer"></div>
+    
     <PrimaryTransition
         transitionName="slide-up"
         enterFromClass="translate-y-full"
         enterToClass="translate-y-0"
         leaveFromClass="translate-y-0"
         leaveToClass="translate-y-full"
-    duration="3000">
+        duration="3000">
         <template v-if="isOpen">
             <div class="fixed left-0 right-0 bottom-0 z-50 popup-background-tr min-h-40 shadow-vertical-tr flex flex-col">
                 <div class="pl-navbar pr-8 border-b border-fill-pr">
@@ -14,10 +15,10 @@
                         <button class="py-3 text-par-s text-lab-pr opacity-60 cursor-not-allowed text-nowrap">
                             {{ $t('labels.shortcuts') }}
                         </button>
-                        <button v-on:click="changeTab(tabs.TEXT_FORMATTING)" v-bind:class="[isActiveTab(tabs.TEXT_FORMATTING) ? 'active-tab text-brand-900' : '']" class="py-3 text-par-s text-nowrap">
+                        <button v-on:click="changeTab(TABS.TEXT_FORMATTING)" v-bind:class="[isActiveTab(TABS.TEXT_FORMATTING) ? 'active-tab text-brand-900' : '']" class="py-3 text-par-s text-nowrap">
                             {{ $t('labels.text_formatting') }}
                         </button>
-                        <button v-on:click="closeCheatSheetPanel" class="py-3 text-par-s ml-auto text-brand-900 text-nowrap">
+                        <button v-on:click="closeCheatSheetPanel" class="py-3 text-par-s ml-auto text-brand-900 text-nowrap cursor-pointer">
                             {{ $t('labels.close') }}
                         </button>
                     </div>
@@ -25,7 +26,7 @@
                 <div class="pl-navbar pr-8 max-h-half-screen overflow-y-auto">
                     <div class="ml-8 w-content">
                         <div class="py-6">
-                            <template v-if="isActiveTab(tabs.TEXT_FORMATTING)">
+                            <template v-if="isActiveTab(TABS.TEXT_FORMATTING)">
                                 <MarkdownCheatSheet></MarkdownCheatSheet>
                             </template>
                             <template v-else>
@@ -40,37 +41,36 @@
 </template>
 
 <script>
-    import { defineComponent, computed, ref, defineAsyncComponent } from 'vue';
+    import { defineComponent, ref, defineAsyncComponent } from 'vue';
     import { useCheatSheet } from '@D/core/composables/cheat-sheet/index.js';
+    import PrimaryTransition from '@D/components/general/transitions/PrimaryTransition.vue';
+
+    const TABS = {
+        SHORT_CUTS: 'shortcuts',
+        TEXT_FORMATTING: 'text-formatting'
+    };
 
     export default defineComponent({
-        props: {
-        },
+        props: {},
         setup: function(props) {
             const { closeCheatSheetPanel, isOpen } = useCheatSheet();
-
-            
-            const tabs = ref({
-                SHORT_CUTS: 'shortcuts',
-                TEXT_FORMATTING: 'text-formatting'
-            });
-
-            const activeTab = ref(tabs.value.TEXT_FORMATTING);
+            const activeTab = ref(TABS.TEXT_FORMATTING);
 
             return {
                 closeCheatSheetPanel: closeCheatSheetPanel,
                 isOpen: isOpen,
-                tabs: tabs,
+                TABS: TABS,
                 activeTab: activeTab,
                 changeTab: (name) => {
                     activeTab.value = name;
                 },
                 isActiveTab: (name = '') => {
-                    return activeTab.value == name;
+                    return activeTab.value === name;
                 }
             };
         },
         components: {
+            PrimaryTransition: PrimaryTransition,
             MarkdownCheatSheet: defineAsyncComponent(() => {
                 return import('@D/components/layout/parts/cheat-sheets/text/markdown/MarkdownCheatSheet.vue');
             }),
