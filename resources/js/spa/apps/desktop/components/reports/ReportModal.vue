@@ -59,8 +59,8 @@
     import ReasonItem from '@D/components/reports/parts/ReasonItem.vue';
     import PrimaryPillButton from '@D/components/inter-ui/buttons/PrimaryPillButton.vue';
     import SvgIcon from '@D/components/general/svg/SvgIcon.vue';
-    import Border from '@D/components/general/border/Border.vue';
-    import PrimaryDotsAnimation from '@D/components/general/loaders/PrimaryDotsAnimation.vue';
+    import Border from '@D/components/general/Border.vue';
+    import PrimaryDotsAnimation from '@D/components/general/PrimaryDotsAnimation.vue';
 
     export default defineComponent({
         setup: function() {
