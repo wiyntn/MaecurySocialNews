@@ -19,6 +19,52 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
 
+// Simple Testing API Endpoint
+Route::get('/test-status', function () {
+    return response()->json([
+        'status'  => 'success',
+        'message' => 'API is working smoothly!',
+        'timestamp' => now()->toDateTimeString(),
+        'server_info' => [
+            'environment' => config('app.env'),
+            'php_version' => PHP_VERSION,
+        ]
+    ], 200);
+});
+
+Route::get('/db-test-user', function () {
+    // Database မှ ပထမဆုံး User ကို ဆွဲထုတ်ခြင်း
+    $user = User::first();
+
+    if (!$user) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'User not found in Database'
+        ], 404);
+    }
+
+    return response()->json([
+        'status' => 'success',
+        'data' => $user
+    ], 200);
+});
+// Mock User Testing API Endpoint (Frontend Test ပြုလုပ်ရန်)
+Route::get('/test-user', function () {
+    return response()->json([
+        'status' => 'success',
+        'data'   => [
+            'id'         => 1,
+            'username'   => 'waiyan_htun',
+            'first_name' => 'Wai Yan',
+            'last_name'  => 'Htun',
+            'avatar_url' => 'https://via.placeholder.com/150',
+            'has_tips'   => true,
+            'role'       => 'developer'
+        ]
+    ], 200);
+});
+
+
 Route::post('/sanctum/token', function (Request $request) {
     $request->validate([
         'email' => 'required|email',
