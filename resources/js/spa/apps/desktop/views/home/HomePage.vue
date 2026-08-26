@@ -24,7 +24,7 @@
                                     v-for="postData in timelinePosts"
                                     v-bind:postData="postData"
                                     v-on:delete="handlePostDelete(postData)"
-                                v-bind:key="postData.hash_id"></TimelinePublication>
+                                    v-bind:key="postData.hash_id"></TimelinePublication>
 
                                 <div v-if="state.isLoadingContent">
                                     <div class="flex justify-center my-4">
@@ -45,7 +45,6 @@
 
                 <template v-slot:sidebar>
                     <FollowRecommendationList></FollowRecommendationList>
-        
                     <AdGridItem></AdGridItem>
                 </template>
             </SidedContentLayout>
@@ -56,7 +55,7 @@
 </template>
 
 <script>
-    import { defineComponent, ref, reactive, onMounted, computed } from 'vue';
+    import { defineComponent, reactive, computed } from 'vue';
     import { useAuthStore } from '@D/store/auth/auth.store.js';
     import { useTimelineStore } from '@D/store/timeline/timeline.store.js';
     import { useDeletePost } from '@D/core/composables/delete-post/index.js';
@@ -69,7 +68,6 @@
     import PublicationEditorTrigger from '@D/features/home/parts/PublicationEditorTrigger.vue';
     import PageTitle from '@D/components/layout/PageTitle.vue';
     import TimelineContainer from '@D/components/timeline/feed/TimelineContainer.vue';
-    import PrimaryPillButton from '@D/components/inter-ui/buttons/PrimaryPillButton.vue';
     import ScrollTopButton from '@D/components/inter-ui/buttons/ScrollTopButton.vue';
     import FollowRecommendationList from '@D/components/recommend/follow/list/FollowRecommendationList.vue';
     import AdGridItem from '@D/components/ads/AdGridItem.vue';
@@ -90,55 +88,58 @@
             
             const authStore = useAuthStore();
             const timelineStore = useTimelineStore();
-            const userData = ref(authStore.user);
+            
+            // Computed သုံးခြင်းဖြင့် User ဒေတာ အပြောင်းအလဲကို Real-time သိရှိစေရန်
+            const userData = computed(() => authStore.user || {});
 
             const timelinePosts = computed(() => {
                 return timelineStore.posts;
             });
 
-            onMounted(async () => {
-                state.isLoading = true;
-
-                await timelineStore.initialLoad();
-
-                state.isLoading = false;
+            // onMounted အတွက် timelineStore.initialLoad() ကို ခေါ်ဆိုခြင်း
+            import('vue').then(({ onMounted }) => {
+                onMounted(async () => {
+                    state.isLoading = true;
+                    await timelineStore.initialLoad();
+                    state.isLoading = false;
+                });
             });
 
             const loadMorePost = async () => {
-				try {
-					if(! state.isLoadingContent && ! state.noMoreContent && timelinePosts.value.length) {
-						state.isLoadingContent = true;
+                try {
+                    if(! state.isLoadingContent && ! state.noMoreContent && timelinePosts.value.length) {
+                        state.isLoadingContent = true;
 
-						await timelineStore.loadNextPage().then(function(response) {
-							let content = response.data.data;
+                        await timelineStore.loadNextPage().then(function(response) {
+                            let content = response.data.data;
 
-							if(content.length) {
-								timelineStore.appendPosts(content);
-							}
-							else{
-								state.noMoreContent = true;
-							}
-						}).catch((error) => {
-							if(error.response) {
-								state.noMoreContent = true;
-							}
-						});
+                            if(content.length) {
+                                timelineStore.appendPosts(content);
+                            }
+                            else {
+                                state.noMoreContent = true;
+                            }
+                        }).catch((error) => {
+                            if(error.response) {
+                                state.noMoreContent = true;
+                            }
+                        });
 
-						state.isLoadingContent = false;
-					}
-				} catch (error) {
-					console.log(error);
-				}
-			}
+                        state.isLoadingContent = false;
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            };
 
             useInfiniteScroll({
                 callback: loadMorePost
             });
 
             return {
-                timelinePosts: timelinePosts,
-                userData: userData,
-                state: state,
+                timelinePosts,
+                userData,
+                state,
                 handlePostDelete: (postData) => {
                     postDeleter(postData, (postId) => {
                         colibriEventBus.emit('timeline:post-deleted', postId);
@@ -147,17 +148,16 @@
             };
         },
         components: {
-            StoriesFeed: StoriesFeed,
-            TimelinePublication: TimelinePublication,
-            PublicationEditorTrigger: PublicationEditorTrigger,
-            TimelinePublicationSkeleton: TimelinePublicationSkeleton,
-            PageTitle: PageTitle,
-            TimelineContainer: TimelineContainer,
-            PrimaryPillButton: PrimaryPillButton,
-            FollowRecommendationList: FollowRecommendationList,
-            AdGridItem: AdGridItem,
-            ScrollTopButton: ScrollTopButton,
-            SidedContentLayout: SidedContentLayout
+            StoriesFeed,
+            TimelinePublication,
+            PublicationEditorTrigger,
+            TimelinePublicationSkeleton,
+            PageTitle,
+            TimelineContainer,
+            FollowRecommendationList,
+            AdGridItem,
+            ScrollTopButton,
+            SidedContentLayout
         }
     });
 </script>
