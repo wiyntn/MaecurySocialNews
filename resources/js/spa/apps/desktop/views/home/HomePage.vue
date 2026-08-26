@@ -1,9 +1,7 @@
 <template>
     <div class="my-top-offset block">
         <div class="mb-6">
-            <PageTitle v-bind:hasBack="false" v-bind:titleText="$t('labels.hello_user', { name: userData.first_name })">
-             
-            </PageTitle>
+            <PageTitle v-bind:hasBack="false" v-bind:titleText="$t('labels.hello_user', { name: userData.first_name })"></PageTitle>
         </div>
 
         <StoriesFeed></StoriesFeed>
@@ -64,7 +62,7 @@
 </template>
 
 <script>
-    import { defineComponent, reactive, computed } from 'vue';
+    import { defineComponent, reactive, computed, onMounted } from 'vue';
     import { useAuthStore } from '@D/store/auth/auth.store.js';
     import { useTimelineStore } from '@D/store/timeline/timeline.store.js';
     import { useDeletePost } from '@D/core/composables/delete-post/index.js';
@@ -104,14 +102,17 @@
                 return timelineStore.posts;
             });
 
-            import('vue').then(({ onMounted }) => {
-                onMounted(async () => {
-                    state.isLoading = true;
-                    console.log('Auth Store User:', authStore.user); // Store ထဲက တိုက်ရိုက်ကြည့်ရန်
-    console.log('Computed User Data:', userData.value);
-                    await timelineStore.initialLoad();
-                    state.isLoading = false;
-                });
+            onMounted(async () => {
+                state.isLoading = true;
+                
+                console.log('=== DEBUG LOG START ===');
+                console.log('Auth Store Object:', authStore);
+                console.log('Auth Store User:', authStore.user); 
+                console.log('Computed User Data:', userData.value);
+                console.log('=== DEBUG LOG END ===');
+
+                await timelineStore.initialLoad();
+                state.isLoading = false;
             });
 
             const loadMorePost = async () => {
