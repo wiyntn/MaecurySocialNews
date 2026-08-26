@@ -1,7 +1,6 @@
 <template>
     <div class="my-top-offset block">
         <div class="mb-6">
-            <!-- User Data ရောက်လာမှသာ Hello User ကို နာမည်နဲ့တကွ ပြမယ်၊ မလာသေးရင် Loading ပြမယ် -->
             <PageTitle 
                 v-if="userData && userData.first_name" 
                 v-bind:hasBack="false" 
@@ -113,7 +112,14 @@
             onMounted(async () => {
                 state.isLoading = true;
 
-                // အကယ်၍ authStore ထဲမှာ user data မရှိသေးရင် ဒီနေရာမှာ fetch လုပ်ပေးဖို့ လိုနိုင်ပါတယ် (ဥပမာ - await authStore.fetchUser())
+                // Auth store ထဲမှာ ဘာတွေပါလဲ ထပ်စစ်ရန်
+                console.log('=== AUTH STORE METHODS & STATE ===', authStore);
+                
+                // အကယ်၍ authStore ထဲမှာ user စစ်ဆေးတဲ့ function ရှိရင် ခေါ်သုံးနိုင်ပါတယ် (ဥပမာ authCheck)
+                if (typeof authStore.authCheck === 'function') {
+                    await authStore.authCheck();
+                    console.log('After authCheck - User:', authStore.user);
+                }
 
                 await timelineStore.initialLoad();
                 state.isLoading = false;
