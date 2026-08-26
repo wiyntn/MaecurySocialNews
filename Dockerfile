@@ -55,8 +55,10 @@ ENV PUSHER_APP_ID=dummy
 
 RUN php artisan package:discover --ansi \
     && php artisan config:clear \
-    && php artisan route:clear
-
+    && php artisan route:clear \
+    &&  php artisan optimize:clear \
+    && php artisan view:clear\
+    && php artisan cache:clear
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
