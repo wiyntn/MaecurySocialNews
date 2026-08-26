@@ -1,7 +1,15 @@
 <template>
     <div class="my-top-offset block">
         <div class="mb-6">
-            <PageTitle v-bind:hasBack="false" v-bind:titleText="$t('labels.hello_user', { name: userData.first_name })"></PageTitle>
+            <!-- User Data ရောက်လာမှသာ Hello User ကို နာမည်နဲ့တကွ ပြမယ်၊ မလာသေးရင် Loading ပြမယ် -->
+            <PageTitle 
+                v-if="userData && userData.first_name" 
+                v-bind:hasBack="false" 
+                v-bind:titleText="$t('labels.hello_user', { name: userData.first_name })"
+            ></PageTitle>
+            <div v-else class="h-8 flex items-center">
+                <div class="h-5 w-40 bg-slate-200 animate-pulse rounded"></div>
+            </div>
         </div>
 
         <StoriesFeed></StoriesFeed>
@@ -104,12 +112,8 @@
 
             onMounted(async () => {
                 state.isLoading = true;
-                
-                console.log('=== DEBUG LOG START ===');
-                console.log('Auth Store Object:', authStore);
-                console.log('Auth Store User:', authStore.user); 
-                console.log('Computed User Data:', userData.value);
-                console.log('=== DEBUG LOG END ===');
+
+                // အကယ်၍ authStore ထဲမှာ user data မရှိသေးရင် ဒီနေရာမှာ fetch လုပ်ပေးဖို့ လိုနိုင်ပါတယ် (ဥပမာ - await authStore.fetchUser())
 
                 await timelineStore.initialLoad();
                 state.isLoading = false;
