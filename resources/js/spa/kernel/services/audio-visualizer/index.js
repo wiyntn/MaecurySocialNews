@@ -6,7 +6,7 @@ const audioVisualizer = () => {
         canvas: null,
         audioContext: null,
         animationInstance: null,
-        audioElement: {},
+        audioElement: null, // {} အစား null သို့ ပြောင်းထားပါ
         config: {
             count: 50,
             lineWidth: 2,
@@ -18,25 +18,36 @@ const audioVisualizer = () => {
             if (audioElement) {
                 this.audioElement = audioElement;
             }
-    
             return this;
         },
         setCanvas: function(canvas = null) {
             if (canvas) {
                 this.canvas = canvas;
             }
-    
             return this;
         },
         linesWaveStart: function (config = {}) {
+            // audioElement နှင့် canvas ရှိမရှိ အရင်စစ်ဆေးပါ
+            if (!this.audioElement || !this.canvas) {
+                console.error('Audio element or Canvas is not set properly!');
+                return;
+            }
+
             this.config = {
                 ...this.config,
                 ...config
             };
             
-            this.animationInstance = new Wave(this.audioElement, this.canvas, true);
-    
-            this.animationInstance.addAnimation(new this.animationInstance.animations.Wave(this.config));
+            // ေနာက်ထပ် undefined များ မဝင်စေရန် ကာကွယ်ခြင်း
+            try {
+                this.animationInstance = new Wave(this.audioElement, this.canvas, true);
+        
+                if (this.animationInstance && this.animationInstance.animations) {
+                    this.animationInstance.addAnimation(new this.animationInstance.animations.Wave(this.config));
+                }
+            } catch (error) {
+                console.error('Wave initialization error:', error);
+            }
         }
     };
 } 
