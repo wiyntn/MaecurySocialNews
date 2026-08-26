@@ -38,9 +38,8 @@ Route::post('/sanctum/token', function (Request $request) {
 });
 // သင်၏ Controller နာမည်အတိုင်း ထည့်ပါ
 
-Route::middleware(['auth:sanctum', 'throttle:60,1'])->group(function () {
-    // colibriAPI().getFrom('bootstrap') သည် /api/bootstrap သို့ သွားပါမည်
-    Route::get('/bootstrap', [BootstrapController::class, '__invoke']); 
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/bootstrap', [App\Http\Controllers\Api\User\Bootstrap\BootstrapController::class, 'bootstrap']);
 });
 Route::prefix('translations')->middleware(['throttle:60,1'])->group(base_path('routes/api/translations.php'));
 
