@@ -10,9 +10,16 @@ const colibriAPI = function () {
         onUploadProgress: null,
         headers: {},
         __makeRequest: function(endpointUrl, method) {
-            if (typeof AxiosAuth[method] === 'function') {
+            if (typeof AxiosAuth[method] === 'function' || AxiosAuth.request) {
+                
+                // namespace က undefined ဖြစ်နေရင် ခွဲထုတ်ပေးရန်
+                const cleanNamespace = this.namespace && this.namespace !== 'undefined' ? this.namespace : '';
+                const cleanEndpoint = endpointUrl.replace(/^\/+/, ''); // ရှေ့က slash အပိုများကို ဖြတ်ရန်
+                
+                const url = cleanNamespace ? `${cleanNamespace}/${cleanEndpoint}` : cleanEndpoint;
+
                 const config = {
-                    url: `${this.namespace}/${endpointUrl}`,
+                    url: url,
                     method: method,
                     headers: this.headers,
                     onUploadProgress: this.onUploadProgress,
@@ -23,9 +30,7 @@ const colibriAPI = function () {
                 this.response = AxiosAuth.request(config);
 
                 return this.response;
-            }
-
-            else{
+            } else {
                 throw new Error(`Invalid method: ${method}`);
             }
         },
@@ -43,22 +48,18 @@ const colibriAPI = function () {
         },
         with: function (payloadData) {
             this.payloadData = payloadData;
-
             return this;
         },
         uploadProgress: function (callback) {
             this.onUploadProgress = callback;
-
             return this;
         },
         params: function (getParams) {
             this.getParams = getParams;
-
             return this;
         },
         withHeaders: function(headers) {
             this.headers = headers;
-
             return this;
         } 
     }, EndpointNamespaces);
