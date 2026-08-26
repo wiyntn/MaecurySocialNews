@@ -15,7 +15,7 @@
 
 namespace App\Http\Controllers\Api\User\Bootstrap;
 
-use App\Info\Mercury Social New;
+use App\Info\ColibriPlus;
 use App\Http\Controllers\Controller;
 use App\Traits\Http\Api\SupportsApiResponses;
 
@@ -27,7 +27,7 @@ class BootstrapController extends Controller
     {
         return $this->responseSuccess([
             'data' => [
-                'version' => Mercury Social New::VERSION,
+                'version' => ColibriPlus::VERSION,
                 'name' => config('app.name'),
                 'author' => [
                     'name' => 'Mansur Terla. Full-Stack Web Developer.',

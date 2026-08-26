@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
-
+use App\Http\Controllers\Api\User\Bootstrap\BootstrapController; 
 Route::post('/sanctum/token', function (Request $request) {
     $request->validate([
         'email' => 'required|email',
@@ -36,7 +36,12 @@ Route::post('/sanctum/token', function (Request $request) {
  
     return $user->createToken($request->device_name)->plainTextToken;
 });
+// သင်၏ Controller နာမည်အတိုင်း ထည့်ပါ
 
+Route::middleware(['auth:sanctum', 'throttle:60,1'])->group(function () {
+    // colibriAPI().getFrom('bootstrap') သည် /api/bootstrap သို့ သွားပါမည်
+    Route::get('/bootstrap', [BootstrapController::class, '__invoke']); 
+});
 Route::prefix('translations')->middleware(['throttle:60,1'])->group(base_path('routes/api/translations.php'));
 
 Route::prefix('bootstrap')->middleware(['auth:sanctum', 'throttle:60,1'])->group(base_path('routes/api/user/bootstrap.php'));
