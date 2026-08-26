@@ -9,7 +9,7 @@ RUN npm run build
 # --- Stage 2: PHP & Application Setup ---
 FROM php:8.4-fpm-alpine
 
-# Dependencies များ တပ်ဆင်ခြင်း
+# Dependencies များ တပ်ဆင်ခြင်း (intl အတွက် icu-dev ထပ်ဖြည့်ထားပါသည်)
 RUN apk add --no-cache \
     nginx \
     supervisor \
@@ -18,12 +18,13 @@ RUN apk add --no-cache \
     libjpeg-turbo-dev \
     freetype-dev \
     libzip-dev \
+    icu-dev \
     zip \
     unzip \
     git \
     oniguruma-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo pdo_mysql mbstring gd zip bcmath opcache
+    && docker-php-ext-install pdo pdo_mysql mbstring gd zip bcmath opcache intl exif
 
 # Composer ထည့်သွင်းခြင်း
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -34,13 +35,17 @@ WORKDIR /var/www/html
 COPY . .
 COPY --from=frontend /app/public/build ./public/build
 
-# Nginx Configuration ကို Dockerfile ထဲတွင် တိုက်ရိုက် ဖန်တီးခြင်း (404 Error Fix)
+# Nginx Configuration ကို Dockerfile ထဲတွင် တိုက်ရိုက် ဖန်တီးခြင်း
 RUN echo 'server { \
     listen 80; \
     server_name _; \
     root /var/www/html/public; \
     index index.php index.html; \
     charset utf-8; \
+    proxy_set_header Host $host; \
+    proxy_set_header X-Real-IP $remote_addr; \
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; \
+    proxy_set_header X-Forwarded-Proto $scheme; \
     location / { \
         try_files $uri $uri/ /index.php?$query_string; \
     } \
@@ -50,6 +55,7 @@ RUN echo 'server { \
     location ~ \.php$ { \
         fastcgi_pass 127.0.0.1:9000; \
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name; \
+        fastcgi_param HTTP_X_FORWARDED_PROTO https; \
         include fastcgi_params; \
     } \
     location ~ /\.(?!well-known).* { \
@@ -57,19 +63,21 @@ RUN echo 'server { \
     } \
 }' > /etc/nginx/http.d/default.conf
 
-# Folder ဆောက်ခြင်း နှင့် Permissions ပေးခြင်း
+# Folder ဆောက်ခြင်း၊ build.num File အဖြစ် ဖန်တီးခြင်း နှင့် Permissions ပေးခြင်း
 RUN mkdir -p storage/framework/cache/data \
     storage/framework/sessions \
     storage/framework/views \
     storage/logs \
+    storage/frontend \
     bootstrap/cache \
     /var/log/supervisor \
     /var/run/supervisor \
+    && echo "1" > storage/frontend/build.num \
     && chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache \
     && chmod -R 777 /var/log/supervisor /var/run/supervisor
 
-# PHP Dependencies တပ်ဆင်ခြင်း (--ignore-platform-reqs ထည့်သွင်းပြီး PHP 8.4 Version Error Fix)
+# PHP Dependencies တပ်ဆင်ခြင်း
 RUN composer install --ignore-platform-reqs --no-dev --optimize-autoloader --no-interaction --no-scripts
 
 # Project ထဲမှ supervisord.conf ကို Container ထဲသို့ Copy ကူးပေးခြင်း
