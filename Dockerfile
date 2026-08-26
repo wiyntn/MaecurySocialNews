@@ -34,8 +34,28 @@ WORKDIR /var/www/html
 COPY . .
 COPY --from=frontend /app/public/build ./public/build
 
-# Nginx Configuration File ကို Copy ကူးထည့်သွင်းခြင်း (404 Error Fix)
-COPY nginx.conf /etc/nginx/http.d/default.conf
+# Nginx Configuration ကို Dockerfile ထဲတွင် တိုက်ရိုက် ဖန်တီးခြင်း (404 Error Fix)
+RUN echo 'server { \
+    listen 80; \
+    server_name _; \
+    root /var/www/html/public; \
+    index index.php index.html; \
+    charset utf-8; \
+    location / { \
+        try_files $uri $uri/ /index.php?$query_string; \
+    } \
+    location = /favicon.ico { access_log off; log_not_found off; } \
+    location = /robots.txt  { access_log off; log_not_found off; } \
+    error_page 404 /index.php; \
+    location ~ \.php$ { \
+        fastcgi_pass 127.0.0.1:9000; \
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name; \
+        include fastcgi_params; \
+    } \
+    location ~ /\.(?!well-known).* { \
+        deny all; \
+    } \
+}' > /etc/nginx/http.d/default.conf
 
 # Folder ဆောက်ခြင်း နှင့် Permissions ပေးခြင်း
 RUN mkdir -p storage/framework/cache/data \
@@ -49,8 +69,8 @@ RUN mkdir -p storage/framework/cache/data \
     && chmod -R 775 storage bootstrap/cache \
     && chmod -R 777 /var/log/supervisor /var/run/supervisor
 
-# PHP Dependencies တပ်ဆင်ခြင်း
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+# PHP Dependencies တပ်ဆင်ခြင်း (--ignore-platform-reqs ထည့်သွင်းပြီး PHP 8.4 Version Error Fix)
+RUN composer install --ignore-platform-reqs --no-dev --optimize-autoloader --no-interaction --no-scripts
 
 # Project ထဲမှ supervisord.conf ကို Container ထဲသို့ Copy ကူးပေးခြင်း
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
