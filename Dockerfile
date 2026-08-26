@@ -34,6 +34,9 @@ WORKDIR /var/www/html
 COPY . .
 COPY --from=frontend /app/public/build ./public/build
 
+# Nginx Configuration File ကို Copy ကူးထည့်သွင်းခြင်း (404 Error Fix)
+COPY docker/nginx.conf /etc/nginx/http.d/default.conf
+
 # Folder ဆောက်ခြင်း နှင့် Permissions ပေးခြင်း
 RUN mkdir -p storage/framework/cache/data \
     storage/framework/sessions \
@@ -42,10 +45,12 @@ RUN mkdir -p storage/framework/cache/data \
     bootstrap/cache \
     /var/log/supervisor \
     /var/run/supervisor \
-    && chmod -R 777 storage bootstrap/cache /var/log/supervisor /var/run/supervisor
+    && chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache \
+    && chmod -R 777 /var/log/supervisor /var/run/supervisor
 
 # PHP Dependencies တပ်ဆင်ခြင်း
-RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-scripts
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
 # Project ထဲမှ supervisord.conf ကို Container ထဲသို့ Copy ကူးပေးခြင်း
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
