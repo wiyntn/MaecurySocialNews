@@ -12,10 +12,15 @@ const colibriAPI = function () {
         __makeRequest: function(endpointUrl, method) {
             if (typeof AxiosAuth[method] === 'function' || AxiosAuth.request) {
                 
-                // namespace က undefined ဖြစ်နေရင် ခွဲထုတ်ပေးရန်
-                const cleanNamespace = this.namespace && this.namespace !== 'undefined' ? this.namespace : '';
-                const cleanEndpoint = endpointUrl.replace(/^\/+/, ''); // ရှေ့က slash အပိုများကို ဖြတ်ရန်
+                // undefined သို့မဟုတ် လွဲမှားနေသော namespace များကို ကာကွယ်ရန်
+                let cleanNamespace = '';
+                if (this.namespace && typeof this.namespace === 'string' && this.namespace !== 'undefined') {
+                    cleanNamespace = this.namespace.replace(/^\/+|\/+$/g, '');
+                }
                 
+                let cleanEndpoint = endpointUrl ? endpointUrl.replace(/^\/+/, '') : '';
+                
+                // URL မှန်ကန်စေရန် ဆက်စပ်ပေးခြင်း
                 const url = cleanNamespace ? `${cleanNamespace}/${cleanEndpoint}` : cleanEndpoint;
 
                 const config = {
