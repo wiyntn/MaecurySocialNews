@@ -2,7 +2,7 @@
 
 namespace App\Info;
 
-class Mercury Social Newial Newial Newial New
+class ColibriPlus
 {
 	public const VERSION = '1.0.0';
 }
