@@ -35,7 +35,7 @@ COPY . .
 COPY --from=frontend /app/public/build ./public/build
 
 # Nginx Configuration File ကို Copy ကူးထည့်သွင်းခြင်း (404 Error Fix)
-COPY docker/nginx.conf /etc/nginx/http.d/default.conf
+COPY nginx.conf /etc/nginx/http.d/default.conf
 
 # Folder ဆောက်ခြင်း နှင့် Permissions ပေးခြင်း
 RUN mkdir -p storage/framework/cache/data \
