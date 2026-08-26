@@ -1,7 +1,9 @@
 <template>
     <div class="my-top-offset block">
         <div class="mb-6">
-            <PageTitle v-bind:hasBack="false" v-bind:titleText="$t('labels.hello_user', { name: userData.first_name })"></PageTitle>
+            <PageTitle v-bind:hasBack="false" v-bind:titleText="$t('labels.hello_user', { name: userData.first_name })">
+             
+            </PageTitle>
         </div>
 
         <StoriesFeed></StoriesFeed>
@@ -10,15 +12,19 @@
             <SidedContentLayout>
                 <template v-slot:content>
                     <TimelineContainer>
+                        <!-- ၁။ ပထမဆုံး Data စတင် Load နေချိန် (Initial Loading) -->
                         <div class="block" v-if="state.isLoading">
                             <TimelinePublicationSkeleton v-for="i in 3" v-bind:key="i"></TimelinePublicationSkeleton>
                         </div>
+
+                        <!-- ၂။ Data Load ပြီးသွားချိန် -->
                         <div class="block" v-else>
                             <div class="block">
                                 <PublicationEditorTrigger></PublicationEditorTrigger>
                                 <div class="h-px bg-bord-pr"></div>
                             </div>
                             
+                            <!-- ၂.က) Post တွေ ရှိမှသာ ပြရန် -->
                             <div v-if="timelinePosts.length">
                                 <TimelinePublication 
                                     v-for="postData in timelinePosts"
@@ -26,12 +32,15 @@
                                     v-on:delete="handlePostDelete(postData)"
                                     v-bind:key="postData.hash_id"></TimelinePublication>
 
+                                <!-- နောက်ထပ်စာမျက်နှာတွေ ထပ်ခေါ်နေချိန် (Infinite Scroll Loading) -->
                                 <div v-if="state.isLoadingContent">
                                     <div class="flex justify-center my-4">
                                         <div class="colibri-primary-animation"></div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- ၂.ခ) Post လုံးဝ မရှိသေးမှသာ (Empty State) ပြရန် -->
                             <div v-else>
                                 <div class="block py-72">
                                     <p class="text-lab-sc text-par-s text-center">
@@ -89,17 +98,17 @@
             const authStore = useAuthStore();
             const timelineStore = useTimelineStore();
             
-            // Computed သုံးခြင်းဖြင့် User ဒေတာ အပြောင်းအလဲကို Real-time သိရှိစေရန်
             const userData = computed(() => authStore.user || {});
 
             const timelinePosts = computed(() => {
                 return timelineStore.posts;
             });
 
-            // onMounted အတွက် timelineStore.initialLoad() ကို ခေါ်ဆိုခြင်း
             import('vue').then(({ onMounted }) => {
                 onMounted(async () => {
                     state.isLoading = true;
+                    console.log('Auth Store User:', authStore.user); // Store ထဲက တိုက်ရိုက်ကြည့်ရန်
+    console.log('Computed User Data:', userData.value);
                     await timelineStore.initialLoad();
                     state.isLoading = false;
                 });
