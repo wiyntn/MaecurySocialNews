@@ -29,6 +29,7 @@ return [
 'allowed_origins' => [
     'http://127.0.0.1:8000',
     'http://localhost:8000',
+    'https://maecurysocialnews.onrender.com',
 ],
 
 'allowed_headers' => [
