@@ -6,16 +6,7 @@ import { useAuthStore } from '@D/store/auth/auth.store.js';
 const useAppStore = defineStore('app', {
     state: () => {
         return {
-            appData: {
-            auth: {
-                user: {
-                    first_name: '',
-                    username: '',
-                    avatar_url: ''
-                }
-            }
-        }
-            // appData: null
+            appData: null
         };
     },
     actions: {

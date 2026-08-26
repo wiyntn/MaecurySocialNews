@@ -1,5 +1,6 @@
 <template>
-    <div class="relative base-publication border-b border-b-bord-pr last:border-none">
+    <!-- Data ရောက်လာမှသာ Main Publication UI ကို ပြမယ် -->
+    <div v-if="postData && postData.relations && postData.relations.user" class="relative base-publication border-b border-b-bord-pr last:border-none">
         <div class="absolute overflow-hidden top-4 left-4">
             <AvatarSmall v-bind:avatarSrc="postData.relations.user.avatar_url" ></AvatarSmall>
         </div>
@@ -34,18 +35,18 @@
                                 <TextTranslateButton
                                     v-if="state.isTranslated"
                                     v-on:click="cancelTranslation"
-                                v-bind:buttonText="$t('labels.show_untranslated')"></TextTranslateButton>
+                                    v-bind:buttonText="$t('labels.show_untranslated')"></TextTranslateButton>
 
                                 <TextTranslateButton
                                     v-else
                                     v-on:click="translate"
-                                v-bind:buttonText="state.isTranslating ? $t('labels.translating') : $t('labels.translate_to', { language_name: userLocaleName })"></TextTranslateButton>
+                                    v-bind:buttonText="state.isTranslating ? $t('labels.translating') : $t('labels.translate_to', { language_name: userLocaleName })"></TextTranslateButton>
                             </div>
                             <PublicationText v-bind:postContent="postContent"></PublicationText>
 
                             <div v-if="state.isTranslated" class="mt-2">
-								<TranslationService></TranslationService>
-							</div>
+                                <TranslationService></TranslationService>
+                            </div>
                         </div>
                     </template>
                     <div class="overflow-hidden mb-2" v-if="postHasMedia">
@@ -97,12 +98,12 @@
                             
                             <div class="shrink-0 leading-zero relative">
                                 <PrimaryIconButton v-on:click.stop="sharePost" iconSize="icon-normal" iconName="share-06" iconType="line"></PrimaryIconButton>
-								<PrimaryTransition v-if="state.isSharePostOpen">
-									<div class="absolute left-0 bottom-8 origin-top-left z-20">
-										<PublicationShare v-outside-click="cancelSharePost" v-on:click.stop="cancelSharePost" v-bind:postLink="postLink"></PublicationShare>
-									</div>
-								</PrimaryTransition>
-							</div>
+                                <PrimaryTransition v-if="state.isSharePostOpen">
+                                    <div class="absolute left-0 bottom-8 origin-top-left z-20">
+                                        <PublicationShare v-outside-click="cancelSharePost" v-on:click.stop="cancelSharePost" v-bind:postLink="postLink"></PublicationShare>
+                                    </div>
+                                </PrimaryTransition>
+                            </div>
                             <div v-if="! postData.relations.comments.length" class="shrink-0">
                                 <RouterLink v-bind:to="{ name: 'publication_page', params: { hash_id: postData.hash_id }}">
                                     <PrimaryIconButton iconSize="icon-normal" iconName="message-circle-02" iconType="line"></PrimaryIconButton>
@@ -187,6 +188,17 @@
             </div>
         </div>
     </div>
+
+    <!-- Data မရောက်လာသေးရင် ပြမည့် Loading Skeleton -->
+    <div v-else class="flex items-center justify-center p-6 border-b border-b-bord-pr">
+        <div class="animate-pulse flex space-x-4 w-full">
+            <div class="rounded-full bg-slate-200 h-10 w-10"></div>
+            <div class="flex-1 space-y-2 py-1">
+                <div class="h-4 bg-slate-200 rounded w-3/4"></div>
+                <div class="h-4 bg-slate-200 rounded w-1/2"></div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -214,6 +226,11 @@
     // Changes to this component will affect the timeline feed and the bookmarks page.
 
     export default defineComponent({
+        computed: {
+    hasValidPostData() {
+        return this.postData && this.postData.id && this.postData.relations;
+    }
+},
         props: {
             postData: {
                 type: Object,
