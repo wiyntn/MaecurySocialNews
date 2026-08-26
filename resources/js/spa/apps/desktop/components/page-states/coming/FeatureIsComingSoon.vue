@@ -9,7 +9,7 @@
                 This feature is coming soon!
             </h4>
             <p class="text-lab-pr3 text-par-m">
-                We're hard at work enhancing ColibriPlus to bring you an even better experience. <a v-bind:href="APP_NEWS_RESOURCE_URL" class="underline" target="_blank">Stay tuned for updates right here</a>!
+                We're hard at work enhancing Mercury Social New to bring you an even better experience. <a v-bind:href="APP_NEWS_RESOURCE_URL" class="underline" target="_blank">Stay tuned for updates right here</a>!
             </p>
             <div class="mt-8">
                 <RouterLink v-bind:to="{ name: 'home_page' }">

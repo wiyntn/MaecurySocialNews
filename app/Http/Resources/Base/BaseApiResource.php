@@ -1,7 +1,7 @@
 <?php
 /*
 |--------------------------------------------------------------------------
-| ColibriPlus - The Social Network Web Application.
+| Mercury Social Newial Newial New - The Social Network Web Application.
 |--------------------------------------------------------------------------
 | Author: Mansur Terla. Full-Stack Web Developer, UI/UX Designer.
 | Website: www.terla.me
@@ -9,7 +9,7 @@
 | Instagram: @mansur_terla
 | Telegram: @mansurtl_contact
 |--------------------------------------------------------------------------
-| Copyright (c)  ColibriPlus. All rights reserved.
+| Copyright (c)  Mercury Social Newial New. All rights reserved.
 |--------------------------------------------------------------------------
 */
 

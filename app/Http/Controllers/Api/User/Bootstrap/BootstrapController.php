@@ -1,7 +1,7 @@
 <?php
 /*
 |--------------------------------------------------------------------------
-| ColibriPlus - The Social Network Web Application.
+| Mercury Social New - The Social Network Web Application.
 |--------------------------------------------------------------------------
 | Author: Mansur Terla. Full-Stack Web Developer, UI/UX Designer.
 | Website: www.terla.me
@@ -9,13 +9,13 @@
 | Instagram: @mansur_terla
 | Telegram: @mansurtl_contact
 |--------------------------------------------------------------------------
-| Copyright (c)  ColibriPlus. All rights reserved.
+| Copyright (c)  Mercury Social New. All rights reserved.
 |--------------------------------------------------------------------------
 */
 
 namespace App\Http\Controllers\Api\User\Bootstrap;
 
-use App\Info\ColibriPlus;
+use App\Info\Mercury Social New;
 use App\Http\Controllers\Controller;
 use App\Traits\Http\Api\SupportsApiResponses;
 
@@ -27,7 +27,7 @@ class BootstrapController extends Controller
     {
         return $this->responseSuccess([
             'data' => [
-                'version' => ColibriPlus::VERSION,
+                'version' => Mercury Social New::VERSION,
                 'name' => config('app.name'),
                 'author' => [
                     'name' => 'Mansur Terla. Full-Stack Web Developer.',

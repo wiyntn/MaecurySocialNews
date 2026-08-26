@@ -20,7 +20,7 @@ class Onboard extends Model
         Establishing direct relationships could complicate the application structure and lead to unnecessary code clutter.
         Instead, we handle the onboarding process separately, which helps keep the code cleaner and more maintainable.
 
-        (c) Mansur Terla. - Developer of ColibriPlus social network script
+        (c) Mansur Terla. - Developer of Mercury Social Newial Newial Newial Newial New social network script
 
         https://www.terla.me
     */

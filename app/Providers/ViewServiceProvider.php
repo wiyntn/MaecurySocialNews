@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Info\ColibriPlus;
+use App\Info\Mercury Social Newial Newial New;
 use App\Support\Languages;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
