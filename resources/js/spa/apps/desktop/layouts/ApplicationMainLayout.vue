@@ -9,7 +9,7 @@
 
     <div id="app">
         <!-- Global Loader Animation -->
-        <GlobalLoader />
+        <!-- <GlobalLoader /> -->
 
         <!-- API Request/Initial Fetching မပြီးမချင်း Main View ကို မပြပါနဲ့ -->
         <router-view v-if="!loaderStore.isLoading" />
@@ -47,7 +47,7 @@
 
 <script>
 import { useLoaderStore } from '@/stores/loader.store.js';
-import GlobalLoader from '@/apps/desktop/components/general/GlobalLoader.vue';
+// import GlobalLoader from '@/apps/desktop/components/general/GlobalLoader.vue';
 
 const loaderStore = useLoaderStore();
     import { defineComponent, watch, ref, computed, onMounted, defineAsyncComponent } from 'vue';

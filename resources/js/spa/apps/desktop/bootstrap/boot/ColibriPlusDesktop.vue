@@ -1,6 +1,6 @@
 <template>
     <!-- 1. Global Axios Interceptor Loader Component ကို ထည့်သွင်းခြင်း -->
-    <GlobalLoader />
+    
 
     <template v-if="appLoading">
         <div class="flex-center w-screen h-screen relative">
@@ -36,7 +36,7 @@
     
     import ApplicationMainLayout from '@D/layouts/ApplicationMainLayout.vue';
     import NetworkStatusBar from '@D/components/layout/parts/network/NetworkStatusBar.vue';
-    import GlobalLoader from '@/apps/desktop/components/general/GlobalLoader.vue'; // Global Loader Import
+    // import GlobalLoader from '@/apps/desktop/components/general/GlobalLoader.vue'; // Global Loader Import
 
     export default defineComponent({
         setup: function(_, context) {
@@ -104,22 +104,22 @@
                 })
             }
         },
-        components: {
-            GlobalLoader: GlobalLoader, // Component Register လုပ်ခြင်း
-            NetworkStatusBar: NetworkStatusBar,
-            ApplicationMainLayout: ApplicationMainLayout,
-            ApplicationStoriesLayout: defineAsyncComponent(() => {
-                return import('@D/layouts/ApplicationStoriesLayout.vue');
-            }),
-            ApplicationInfoLayout: defineAsyncComponent(() => {
-                return import('@D/layouts/ApplicationInfoLayout.vue');
-            }),
-            ApplicationFlatLayout: defineAsyncComponent(() => {
-                return import('@D/layouts/ApplicationFlatLayout.vue');
-            }),
-            ApplicationCatalogLayout: defineAsyncComponent(() => {
-                return import('@D/layouts/ApplicationCatalogLayout.vue');
-            })
-        }
+        // components: {
+        //     // GlobalLoader: GlobalLoader, // Component Register လုပ်ခြင်း
+        //     NetworkStatusBar: NetworkStatusBar,
+        //     ApplicationMainLayout: ApplicationMainLayout,
+        //     ApplicationStoriesLayout: defineAsyncComponent(() => {
+        //         return import('@D/layouts/ApplicationStoriesLayout.vue');
+        //     }),
+        //     ApplicationInfoLayout: defineAsyncComponent(() => {
+        //         return import('@D/layouts/ApplicationInfoLayout.vue');
+        //     }),
+        //     ApplicationFlatLayout: defineAsyncComponent(() => {
+        //         return import('@D/layouts/ApplicationFlatLayout.vue');
+        //     }),
+        //     ApplicationCatalogLayout: defineAsyncComponent(() => {
+        //         return import('@D/layouts/ApplicationCatalogLayout.vue');
+        //     })
+        // }
     });
 </script>
