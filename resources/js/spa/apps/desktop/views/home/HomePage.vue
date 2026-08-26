@@ -1,6 +1,7 @@
 <template>
     <div class="my-top-offset block">
         <div class="mb-6">
+            <!-- User Data ရောက်လာမှသာ Hello User ကို နာမည်နဲ့တကွ ပြမယ်၊ မလာသေးရင် Loading ပြမယ် -->
             <PageTitle 
                 v-if="userData && userData.first_name" 
                 v-bind:hasBack="false" 
@@ -71,6 +72,7 @@
 <script>
     import { defineComponent, reactive, computed, onMounted } from 'vue';
     import { useAuthStore } from '@D/store/auth/auth.store.js';
+    import { useAppStore } from '@D/store/app/app.store.js';
     import { useTimelineStore } from '@D/store/timeline/timeline.store.js';
     import { useDeletePost } from '@D/core/composables/delete-post/index.js';
     import { useInfiniteScroll } from '@D/core/composables/infinite-scroll/index.js';
@@ -101,6 +103,7 @@
             const { postDeleter } = useDeletePost();
             
             const authStore = useAuthStore();
+            const appStore = useAppStore();
             const timelineStore = useTimelineStore();
             
             const userData = computed(() => authStore.user || {});
@@ -112,17 +115,17 @@
             onMounted(async () => {
                 state.isLoading = true;
 
-                // Auth store ထဲမှာ ဘာတွေပါလဲ ထပ်စစ်ရန်
-                console.log('=== AUTH STORE METHODS & STATE ===', authStore);
-                
-                // အကယ်၍ authStore ထဲမှာ user စစ်ဆေးတဲ့ function ရှိရင် ခေါ်သုံးနိုင်ပါတယ် (ဥပမာ authCheck)
-                if (typeof authStore.authCheck === 'function') {
-                    await authStore.authCheck();
-                    console.log('After authCheck - User:', authStore.user);
-                }
+                try {
+                    // App bootstrap လုပ်ပြီး User data ကို Store ထဲ အရင် ဝင်လာအောင် ခေါ်ပါမည်
+                    await appStore.bootstrapApplication();
 
-                await timelineStore.initialLoad();
-                state.isLoading = false;
+                    // ပြီးမှ Timeline Posts များကို ဆက်ဆွဲပါမည်
+                    await timelineStore.initialLoad();
+                } catch (error) {
+                    console.log('Initialization error:', error);
+                } finally {
+                    state.isLoading = false;
+                }
             });
 
             const loadMorePost = async () => {
