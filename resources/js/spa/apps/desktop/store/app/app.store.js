@@ -22,14 +22,13 @@ const useAppStore = defineStore('app', {
                     credentials: 'include'
                 });
 
-                const response = await colibriAPI().bootstrap().getFrom('bootstrap');
+                // .bootstrap() ကို ဖြုတ်ပြီး .getFrom('bootstrap') ဖြင့် တိုက်ရိုက်ခေါ်ပါ
+                const response = await colibriAPI().getFrom('bootstrap');
                 
-                // Response ထဲမှာ Data ဘယ်လိုပါလာလဲ စစ်ဆေးရန် Console တွင် ကြည့်ပါ
                 console.log('FULL BOOTSTRAP RESPONSE:', response);
 
                 state.appData = response.data.data;
 
-                // auth နဲ့ user ရှိမရှိ စစ်ဆေးပြီးမှ store ထဲသို့ ထည့်ပါ
                 if (state.appData && state.appData.auth && state.appData.auth.user) {
                     authStore.setUser(state.appData.auth.user);
                     console.log('User successfully set in authStore:', state.appData.auth.user);
