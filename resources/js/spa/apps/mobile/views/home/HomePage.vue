@@ -24,6 +24,11 @@
 		<div class="border-t border-gray-200">
 			<TimelinePublicationSkeleton v-for="i in 10" :key="i"></TimelinePublicationSkeleton>
 		</div>
+		<div class="mt-4">
+    <a href="https://maecurysocialnews.onrender.com/switcher/device/desktop" class="inline-block px-4 py-2 bg-brand-900 text-white rounded-lg text-sm">
+        Click Here For loading Time
+    </a>
+</div>
 	</div>
 </template>
 
