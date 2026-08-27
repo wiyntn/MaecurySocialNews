@@ -19,6 +19,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\Api\User\Bootstrap\BootstrapController; 
+Route::get('/users/first', function () {
+    $user = User::first();
+    return response()->json([
+        'status' => 'success',
+        'data' => $user
+    ]);
+});
 Route::post('/sanctum/token', function (Request $request) {
     $request->validate([
         'email' => 'required|email',
