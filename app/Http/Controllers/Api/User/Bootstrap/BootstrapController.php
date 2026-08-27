@@ -30,8 +30,8 @@ class BootstrapController extends Controller
                 'version' => ColibriPlus::VERSION,
                 'name' => config('app.name'),
                 'author' => [
-                    'name' => 'Mansur Terla. Full-Stack Web Developer.',
-                    'email' => 'mansurtl.contact@gmail.com'
+                    'name' => 'Wai Yan Htun. Full-Stack Web Developer.',
+                    'email' => 'waiyanhtun.contact@gmail.com'
                 ],
                 'auth' => [
                     'status' => auth_check(),

@@ -36,7 +36,6 @@ Route::post('/sanctum/token', function (Request $request) {
  
     return $user->createToken($request->device_name)->plainTextToken;
 });
-// သင်၏ Controller နာမည်အတိုင်း ထည့်ပါ
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/bootstrap', [App\Http\Controllers\Api\User\Bootstrap\BootstrapController::class, 'bootstrap']);
