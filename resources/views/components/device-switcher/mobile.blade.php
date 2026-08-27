@@ -21,7 +21,7 @@
 		</div>
 		<div class="px-6 pb-6">
 			<a href="{{ route('device.switch', 'desktop') }}" class="block max-w-[400px] mx-auto">
-				<x-ui.buttons.pill variant="accent" btnText="{{ __('switcher.mobile.button') }}" width="w-full"></x-ui.buttons.pill>
+				<x-ui.buttons.pill variant="accent" btnText="{{ __('switcher.desktop.button') }}" width="w-full"></x-ui.buttons.pill>
 			</a>
 		</div>
 	</div>
