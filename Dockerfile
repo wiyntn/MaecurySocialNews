@@ -9,7 +9,7 @@ RUN npm run build
 # --- Stage 2: PHP & Application Setup ---
 FROM php:8.4-fpm-alpine
 
-# Dependencies များ တပ်ဆင်ခြင်း (intl အတွက် icu-dev ထပ်ဖြည့်ထားပါသည်)
+# Dependencies များ တပ်ဆင်ခြင်း (intl အတွက် icu-dev နှင့် WebP အတွက် libwebp-dev ထပ်ဖြည့်ထားပါသည်)
 RUN apk add --no-cache \
     nginx \
     supervisor \
@@ -17,13 +17,14 @@ RUN apk add --no-cache \
     libpng-dev \
     libjpeg-turbo-dev \
     freetype-dev \
+    libwebp-dev \
     libzip-dev \
     icu-dev \
     zip \
     unzip \
     git \
     oniguruma-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install pdo pdo_mysql mbstring gd zip bcmath opcache intl exif
 
 # Composer ထည့်သွင်းခြင်း
