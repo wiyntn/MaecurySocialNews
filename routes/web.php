@@ -63,7 +63,7 @@ Route::middleware(['user.status', 'auth:sanctum'])->group(function() {
         $deviceType = Cookie::get('device_type', 'desktop');
         
         if($deviceType == 'mobile') {
-            return view('mobile::index');
+            return view('desktop::index');
         }
 
         else{
