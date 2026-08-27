@@ -11,16 +11,16 @@ return [
 		'enabled' => true,
 	],
 	'videos' => [
-		'enabled' => false,
+		'enabled' => true,
 	],
 	'ads' => [
-		'enabled' => false,
+		'enabled' => true,
 	],
 	'wallet' => [
 		'enabled' => true,
 	],
 	'api' => [
-		'enabled' => false,
+		'enabled' => true,
 	],
 	'business_accounts' => [
 		'enabled' => true,
