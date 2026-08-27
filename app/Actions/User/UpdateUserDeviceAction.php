@@ -59,7 +59,7 @@ class UpdateUserDeviceAction
                 'browser_version' => $agent->version($agent->browser()),
                 'ip_address' => $userIp,
                 'user_agent' => $userAgent,
-                'platform_type' => 'desktop',
+                'platform_type' => $agent->isMobile() ? 'mobile' : 'desktop',
                 'is_location_unknown' => empty($userLocationData),
                 'last_online' => now(),
                 'country' => data_get($userLocationData, 'country', null),

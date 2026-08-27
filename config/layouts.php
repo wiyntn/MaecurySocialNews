@@ -2,6 +2,9 @@
 
 return [
     'desktop' => [
-        'min_width' => 1000
+        'min_width' => 100
+    ],
+    'mobile' => [
+        'max_width' => 99
     ]
 ];
