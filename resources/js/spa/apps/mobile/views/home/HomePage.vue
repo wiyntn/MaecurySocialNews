@@ -7,10 +7,10 @@
 				</RouterLink>
 			</div>
 			<h2 class="text-2xl font-bold mb-1 text-lab-pr2">
-				ColibriPlus Mobile
+				Mercury <i class="fas fa-mobile-alt    "></i>
 			</h2>
 			<p class="text-lab-sc text-sm mb-2">
-				Mobile version of ColibriPlus is under development.
+				Mobile version of Mercury is under development.
 			</p>
 
 			<p class="text-lab-sc text-sm mb-2">
@@ -18,7 +18,7 @@
 			</p>
 
 			<p class="text-lab-sc text-xs">
-				Developed with ❤️ by <a href="##" target="_blank" class="underline">Mansur Terla</a>
+				Developed with ❤️ by <a href="##" target="_blank" class="underline">Mercury Team</a>
 			</p>
 		</div>
 		<div class="border-t border-gray-200">
