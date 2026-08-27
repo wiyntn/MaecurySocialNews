@@ -6,7 +6,7 @@ const cleanUrlPart = (part) => {
     return part.replace(/^\/+|\/+$/g, '');
 };
 
-const rawBaseURL = import.meta.env.VITE_API_BASE_URL || 'https://maecurysocialnews.onrender.com';
+const rawBaseURL = import.meta.env.VITE_API_BASE_URL || 'https://maecurysocialnews.onrender.com/api';
 const rawPrefix = import.meta.env.VITE_APP_API_PREFIX || '';
 
 const baseURL = cleanUrlPart(rawBaseURL);
