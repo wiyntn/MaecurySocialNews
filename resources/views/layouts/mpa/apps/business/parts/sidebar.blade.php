@@ -142,7 +142,7 @@
                 <x-sidebar.link href="{{ url('/') }}" target="_blank">{{ config('app.name') }} &copy; {{ now()->year }}</x-sidebar.link>
                 
                 @unless(config('app.hide_author_attribution'))
-                    <x-sidebar.link href="#" target="_blank">Created by Wai Yan</x-sidebar.link>
+                    <x-sidebar.link href="#" target="_blank">Created by Mercury</x-sidebar.link>
                 @endunless
 			</div>
 		</div>
