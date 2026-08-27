@@ -29,10 +29,17 @@ return [
     */
     
     'system_disks' => [
-        // Never remove this disk (local). It is used for the internal storage.
         'local' => [
+        'driver' => 'local',
+        'root' => storage_path('app'),
+        'throw' => false,
+    ],
+        // Never remove this disk (local). It is used for the internal storage.
+        'public' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => storage_path('app/public'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
             'throw' => false,
         ],
     ],

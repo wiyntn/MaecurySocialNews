@@ -69,6 +69,7 @@ RUN mkdir -p storage/framework/cache/data \
     storage/framework/sessions \
     storage/framework/views \
     storage/logs \
+    storage/app/public \
     storage/frontend \
     bootstrap/cache \
     /var/log/supervisor \

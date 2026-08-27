@@ -23,7 +23,6 @@ class FeedResource extends JsonResource
     public function toArray(Request $request): array
     {
         $isOwner = ($this->user_id == me()->id);
-
         return [
             'story_uuid' => $this->story_uuid,
             'relations' => [
