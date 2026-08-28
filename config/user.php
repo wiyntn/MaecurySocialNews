@@ -100,8 +100,8 @@ return [
     // and other small media files like badges, stickers, and other
     
     'disks' => [
-        'avatar' => 'public',
-        'cover' => 'public',
+        'avatar' => 'idrive',
+        'cover' => 'idrive',
     ],
     'avatar_config' => [
         'crop_size' => 256,

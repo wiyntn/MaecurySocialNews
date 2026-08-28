@@ -17,7 +17,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Traits\Pagination\SupportsManualPagination;
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 class User extends Authenticatable
 {
     use FetchesDrafts, 
@@ -33,7 +34,7 @@ class User extends Authenticatable
     public static $snakeAttributes = true;
 
     protected $guarded = [];
-
+    protected $appends = ['avatar_url', 'cover_url', 'name'];
     protected function casts(): array
     {
         return [
@@ -56,7 +57,25 @@ class User extends Authenticatable
     {
         return new DateFormatter($this->created_at);
     }
+ // User.php Model ထဲက avatarUrl accessor ကို ဒီလိုပြောင်းလိုက်ပါ
+public function getAvatarUrlAttribute()
+{
+    $avatarPath = $this->avatar ?? null;
 
+    if (empty($avatarPath) || $this->hasDefaultAvatar()) {
+        return asset(config('user.avatar'));
+    }
+
+    return Storage::disk('idrive')->temporaryUrl($avatarPath, now()->addDays(10));
+}
+public function getCoverUrlAttribute()
+    {
+        if (empty($this->cover) || $this->hasDefaultCover()) {
+            return asset(config('user.cover'));
+        }
+
+        return Storage::disk('idrive')->temporaryUrl($this->cover, now()->addDays(10));
+    }
     public function getLastActive()
     {
         return new DateFormatter($this->last_active);
@@ -301,23 +320,24 @@ class User extends Authenticatable
         return $this->cover == config('user.cover');
     }
 
-    public function getAvatarUrlAttribute()
-    {
-        if (empty($this->avatar) || $this->hasDefaultAvatar()) {
-            return asset(config('user.avatar'));
-        }
+    // public function getAvatarUrlAttribute()
+    // {
+    //     if (empty($this->avatar) || $this->hasDefaultAvatar()) {
+    //         return asset(config('user.avatar'));
+    //     }
 
-        return storage_url($this->avatar, config('user.disks.avatar'));
-    }
+    //     return storage_url($this->avatar, config('user.disks.avatar'));
+    // }
+   
 
-    public function getCoverUrlAttribute()
-    {
-        if (empty($this->cover) || $this->hasDefaultCover()) {
-            return asset(config('user.cover'));
-        }
+    // public function getCoverUrlAttribute()
+    // {
+    //     if (empty($this->cover) || $this->hasDefaultCover()) {
+    //         return asset(config('user.cover'));
+    //     }
 
-        return storage_url($this->cover, config('user.disks.cover'));
-    }
+    //     return storage_url($this->cover, config('user.disks.cover'));
+    // }
 
     public function getProfileUrlAttribute()
     {

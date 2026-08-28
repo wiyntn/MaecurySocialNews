@@ -7,4 +7,3 @@ return [
 	],
 	'admin_locale' => env('ADMIN_LOCALE', 'en')
 ];
-

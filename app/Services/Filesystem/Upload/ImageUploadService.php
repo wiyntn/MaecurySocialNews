@@ -28,6 +28,12 @@ class ImageUploadService extends AbstractUploadService
     {
         $this->imageEncoder = config('filesystems.image_encoder');
 
+        // အရေးကြီးချက် - Disk ကို ဘယ်နေရာကမှ မထည့်ပေးလိုက်ရင် Local ထဲ မရောက်သွားစေရန် 
+        // Default အနေနဲ့ 'idrive' (သို့မဟုတ် filesystems.default) ကို သုံးပေးမည်
+        if (empty($this->storageDisk)) {
+            $this->storageDisk = config('filesystems.default', 'idrive');
+        }
+
         return $this;
     }
 
@@ -46,10 +52,6 @@ class ImageUploadService extends AbstractUploadService
 
     public function compress(int $rate = 70): self
     {
-        // TODO
-        // config('post.processing.image.compress_rate')
-        // Pass it when uploading images for posts.
-
         $imageEncoder = $this->getImageEncoder();
 
         $this->image = $this->image->encode(new $imageEncoder($rate));
@@ -86,7 +88,12 @@ class ImageUploadService extends AbstractUploadService
 
     public function upload(): array
     {
-       try {
+        try {
+            // Storage Disk အလွတ်ဖြစ်နေပါက idrive သို့ အတင်းပြောင်းမည် (Local ထဲ မရောက်စေရန်)
+            if (empty($this->storageDisk) || $this->storageDisk === 'local' || $this->storageDisk === 'public') {
+                $this->storageDisk = 'idrive';
+            }
+
             $uploadData = [
                 'disk' => $this->storageDisk,
                 'image_size' => $this->getImageSize(),

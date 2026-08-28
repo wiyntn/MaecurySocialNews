@@ -151,9 +151,29 @@ if (!function_exists('confirmation_unique_code')) {
 }
 
 if (!function_exists('storage_url')) {
-    function storage_url($path, $disk = 'public') {
+    function storage_url($path, $disk = null)
+    {
+        if (empty($path)) {
+            return null;
+        }
+
+        $disk = $disk ?: config('filesystems.default');
+
+        try {
+            // idrive ဒါမှမဟုတ် S3-compatible private disks တွေအတွက် temporaryUrl ထုတ်ပေးမည်
+            if (in_array($disk, ['idrive', 'backblaze', 's3'])) {
+                return Storage::disk($disk)->temporaryUrl($path, now()->addDays(7));
+            }
+        } catch (\Exception $e) {
+            // temporaryUrl ထုတ်လို့မရရင် (သို့မဟုတ် ဖိုင်မရှိရင်) ပုံမှန် url ဆီ fallback လုပ်မည်
+        }
+
+        // Public disk များ (ဥပမာ - public) အတွက် မူလ url တိုင်း ပြန်ပေးမည်
         return Storage::disk($disk)->url($path);
     }
+    // function storage_url($path, $disk = 'public') {
+    //     return Storage::disk($disk)->url($path);
+    // }
 }
 
 if (!function_exists('storage_local_path')) {

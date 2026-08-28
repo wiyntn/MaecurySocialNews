@@ -1,5 +1,19 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+| Mercury Social Newial New - The Social Network Web Application.
+|--------------------------------------------------------------------------
+| Author: Mansur Terla. Full-Stack Web Developer, UI/UX Designer.
+| Website: www.terla.me
+| E-mail: mansurtl.contact@gmail.com
+| Instagram: @mansur_terla
+| Telegram: @mansurtl_contact
+|--------------------------------------------------------------------------
+| Copyright (c)  Mercury Social Newial Newial New. All rights reserved.
+|--------------------------------------------------------------------------
+*/
+
 return [
 
     /*
@@ -13,7 +27,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'local'),
+    'default' => env('FILESYSTEM_DISK', 'idrive'),
 
     /*
     |--------------------------------------------------------------------------
@@ -30,11 +44,10 @@ return [
     
     'system_disks' => [
         'local' => [
-        'driver' => 'local',
-        'root' => storage_path('app'),
-        'throw' => false,
-    ],
-        // Never remove this disk (local). It is used for the internal storage.
+            'driver' => 'local',
+            'root' => storage_path('app'),
+            'throw' => false,
+        ],
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
@@ -43,7 +56,9 @@ return [
             'throw' => false,
         ],
     ],
+
     'disks' => [
+     
         // Never add here your disks. Add them in var/config/filesystems/disks.php
     ],
 

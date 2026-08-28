@@ -20,6 +20,17 @@ return [
 		'visibility' => 'public',
 		'throw' => false,
 	],
+	  'idrive' => [
+        'driver' => 's3',
+        'key' => env('IDRIVE_ACCESS_KEY_ID'),
+        'secret' => env('IDRIVE_SECRET_ACCESS_KEY'),
+        'region' => env('IDRIVE_DEFAULT_REGION'),
+        'bucket' => env('IDRIVE_BUCKET'),
+        'endpoint' => env('IDRIVE_ENDPOINT'),
+        'use_path_style_endpoint' => true,
+		'visibility' => 'public',
+        'throw' => true,
+    ],
 	
 	// You can add here file system disks as much as you want.
 	// But make sure that disk name is unique. E.g 's3_one', 's3_two', etc. 
