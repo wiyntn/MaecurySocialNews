@@ -66,7 +66,7 @@ public function getAvatarUrlAttribute()
         return asset(config('user.avatar'));
     }
 
-    return Storage::disk('idrive')->temporaryUrl($avatarPath, now()->addDays(10));
+    return Storage::disk('idrive')->temporaryUrl($avatarPath, now()->addDays(7));
 }
 public function getCoverUrlAttribute()
     {
@@ -74,7 +74,7 @@ public function getCoverUrlAttribute()
             return asset(config('user.cover'));
         }
 
-        return Storage::disk('idrive')->temporaryUrl($this->cover, now()->addDays(10));
+        return Storage::disk('idrive')->temporaryUrl($this->cover, now()->addDays(7));
     }
     public function getLastActive()
     {
