@@ -1,4 +1,4 @@
-{{-- <div class="block fixed bg-bg-pr inset-0 overflow-hidden lg:hidden z-[1000]">
+<div class="block fixed bg-bg-pr inset-0 overflow-hidden lg:hidden z-[1000]">
 	<div class="flex flex-col h-full">
 		<div class="flex items-center justify-center mb-6 h-14 border-b border-bord-pr">
 			<div class="w-7">
@@ -25,4 +25,4 @@
 			</a>
 		</div>
 	</div>
-</div> --}}
+</div>
