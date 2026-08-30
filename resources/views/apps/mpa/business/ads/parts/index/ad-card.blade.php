@@ -1,8 +1,11 @@
 <x-cards.timeline.card>
     <div class="mb-2">
+        <div class="overflow-hidden rounded-lg h-52 border border-bord-pr">
         <a href="{{ route('business.ads.show', ['adId' => $adData->id]) }}" class="block">
-            <x-cards.timeline.image imageUrl="{{ $adData->preview_image_url }}"></x-cards.timeline.image>
+            <img class="size-full object-center object-cover" src="{{ $adData->preview_image_url }}" alt="Ad Creative">
+            {{-- <x-cards.timeline.image imageUrl="{{ $adData->preview_image_url }}"></x-cards.timeline.image> --}}
         </a>
+        </div>
     </div>
     <div class="mb-4">
         <x-cards.timeline.content

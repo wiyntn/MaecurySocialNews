@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\Base\SupportsHashIds;
 use App\Models\Traits\Bookmark\Bookmarkable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+ use Illuminate\Support\Facades\Storage;
 class Product extends Model
 {
 	use Bookmarkable,
@@ -168,13 +168,20 @@ class Product extends Model
 
 	public function getPreviewImageUrlAttribute()
 	{
-		$media = $this->media;
+		// $media = $this->media;
 
-		if($media->isEmpty()) {
-			return asset(config('marketplace.product.default_preview'));
-		}
-
-		return $media->first()->source_url;
+		// if($media->isEmpty()) {
+		// 	return asset(config('marketplace.product.default_preview'));
+		// }
+		// return $media->first()->source_url;
+		{
+         $media = $this->media->first();
+        if (!$media || empty($media->source_path)) {
+            return asset(config('marketplace.product.default_preview'));
+        }
+        // Force the 'idrive' disk (or check your filesystems.php config)
+        return Storage::disk('idrive')->temporaryUrl($media->source_path, now()->addDays(7));
+        }
 	}
 
 	public function getUrlAttribute()

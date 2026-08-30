@@ -32,23 +32,31 @@ class Base64ImageService
         return $this;
     }
 
-    public function loadFromUrl(string $imageUrl)
+   public function loadFromUrl(string $imageUrl)
     {
         try {
             $response = Http::timeout($this->timeout)->withOptions([
                 'verify' => false,
                 'allow_redirects' => true
             ])->get($imageUrl);
-    
-            if($response->successful()) {
-                $this->image = $this->manager->read($response->body());
-    
-                return $this;
+        
+            // HTTP request အောင်မြင်ရဲ့လား စစ်ဆေးမည်
+            if (! $response->successful()) {
+                throw new \Exception("HTTP Error status: " . $response->status());
             }
-        }
 
-        catch (Exception $e) {
-            throw new Exception("Failed to get image from URL. {$e->getMessage()}");
+            $body = $response->body();
+
+            if (empty($body)) {
+                throw new \Exception("The downloaded image content is empty.");
+            }
+
+            $this->image = $this->manager->read($body);
+
+            return $this;
+        }
+        catch (\Exception $e) {
+            throw new \Exception("Failed to get image from URL. {$e->getMessage()}");
         }
     }
 

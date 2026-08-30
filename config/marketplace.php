@@ -41,7 +41,7 @@ return [
 					'image/jpg',
 					'image/gif'
 				]),
-				'max' => '2048' // 2MB
+				'max' => '5120' // 5MB
 			]
 		],
 		'default_preview' => 'assets/products/default-preview.png',

@@ -5,9 +5,9 @@
 ])
 
 <div class="flex items-center border border-bord-pr rounded-2xl p-4">
-	<div class="shrink-0">
-		<x-general.avatars.avatar-small :avatarUrl="$avatarUrl"></x-general.avatars.avatar-small>
-	</div>
+		<div class="shrink-0">
+		{{-- <x-general.avatars.avatar-small :avatarUrl="$avatarUrl"></x-general.avatars.avatar-small> --}}
+		</div>
 	<div class="flex-1 ml-2 mr-4 leading-none overflow-hidden">
 		<h5 class="text-par-m text-lab-pr2 font-medium truncate">
 			{{ $name }}

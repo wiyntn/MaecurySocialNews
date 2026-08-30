@@ -7,7 +7,7 @@ use App\Enums\Ad\AdStatus;
 use App\Enums\Ad\AdApproval;
 use Illuminate\Database\Eloquent\Model;
 use App\Support\Casts\ModelTimestampCast;
-
+ use Illuminate\Support\Facades\Storage;
 class Ad extends Model
 {
     protected $guarded = [];
@@ -46,15 +46,16 @@ class Ad extends Model
     }
 
     public function getPreviewImageUrlAttribute()
-	{
-		$media = $this->media;
+        {
+         $media = $this->media->first();
 
-		if($media->isEmpty()) {
-			return asset(config('ads.ad.default_preview'));
-		}
+        if (!$media || empty($media->source_path)) {
+            return asset(config('ads.ad.default_preview'));
+        }
 
-		return $media->first()->source_url;
-	}
+        // Force the 'idrive' disk (or check your filesystems.php config)
+        return Storage::disk('idrive')->temporaryUrl($media->source_path, now()->addDays(7));
+        }
 
     public function getFormattedIdAttribute(): string
     {

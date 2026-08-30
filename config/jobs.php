@@ -37,7 +37,7 @@ return [
 					'image/jpg',
 					'image/gif'
 				]),
-				'max' => '2048', // 2MB
+				'max' => '5120', // 2MB
 				'image_width' => 900,
 				'image_height' => 1200
 			]

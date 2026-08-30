@@ -58,17 +58,17 @@ class User extends Authenticatable
         return new DateFormatter($this->created_at);
     }
  // User.php Model ထဲက avatarUrl accessor ကို ဒီလိုပြောင်းလိုက်ပါ
-public function getAvatarUrlAttribute()
-{
-    $avatarPath = $this->avatar ?? null;
+    public function getAvatarUrlAttribute()
+    {
+        $avatarPath = $this->avatar ?? null;
 
-    if (empty($avatarPath) || $this->hasDefaultAvatar()) {
-        return asset(config('user.avatar'));
+        if (empty($avatarPath) || $this->hasDefaultAvatar()) {
+            return asset(config('user.avatar'));
+        }
+
+        return Storage::disk('idrive')->temporaryUrl($avatarPath, now()->addDays(7));
     }
-
-    return Storage::disk('idrive')->temporaryUrl($avatarPath, now()->addDays(7));
-}
-public function getCoverUrlAttribute()
+    public function getCoverUrlAttribute()
     {
         if (empty($this->cover) || $this->hasDefaultCover()) {
             return asset(config('user.cover'));

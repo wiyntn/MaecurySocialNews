@@ -163,12 +163,15 @@ class Upsert extends Component
             $roundRobinService = app(RoundRobinService::class);
             
             $imageData = $imageUploadService
-                ->load($this->creative->getRealPath())
-                ->setStorageDisk($roundRobinService->getNextDisk())
-                ->setNamespace(Filesystem::getAdCreativeNamespace())
-                ->crop(config('ads.ad.image_width'), config('ads.ad.image_height'))
-                ->compress()
-                ->upload();
+                        ->load($this->creative)
+                        ->setStorageDisk($roundRobinService->getNextDisk())
+                        ->setNamespace(Filesystem::getAdCreativeNamespace())
+                        ->crop(
+                            config('ads.ad.image_width'),
+                            config('ads.ad.image_height')
+                        )
+                        ->compress()
+                        ->upload();
 
             if($imageData) {
                 $this->adData->media()->create([

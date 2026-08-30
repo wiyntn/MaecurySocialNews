@@ -13,7 +13,6 @@ use Intervention\Image\Drivers\Gd\Encoders\JpegEncoder;
 use Intervention\Image\Drivers\Gd\Encoders\WebpEncoder;
 use App\Traits\Services\Filesystem\ThrowsUploadExceptions;
 use App\Services\Filesystem\Abstract\AbstractUploadService;
-
 class ImageUploadService extends AbstractUploadService
 {
     use ThrowsUploadExceptions;
@@ -23,6 +22,7 @@ class ImageUploadService extends AbstractUploadService
     private string $imageDefaultExtension = 'webp';
     private string $imageEncoder = 'webp';
     private string $imageLQIPBase64 = '';
+    protected $timeout = 30;
 
     public function __construct()
     {
@@ -37,18 +37,101 @@ class ImageUploadService extends AbstractUploadService
         return $this;
     }
 
-    public function load(string $imagePath)
-    {
-        $this->manager = new ImageManager(new Driver());
+   public function load($imagePath)
+{
+    $this->manager = new ImageManager(new Driver());
 
-        if (is_string($imagePath) && file_exists($imagePath)) {
-            $this->image = $this->manager->read($imagePath);
+    try {
+        // 1. Handle UploadedFile or objects with get() method
+        if (
+            $imagePath instanceof \Illuminate\Http\UploadedFile ||
+            (is_object($imagePath) && method_exists($imagePath, 'get'))
+        ) {
+            if (
+                method_exists($imagePath, 'isValid') &&
+                !$imagePath->isValid()
+            ) {
+                throw new Exception('The uploaded file is not valid.');
+            }
+
+            $imageContents = $imagePath->get();
+
+            if (empty($imageContents)) {
+                throw new Exception('Uploaded image file is empty.');
+            }
+
+            $this->image = $this->manager->read($imageContents);
+
+        } elseif (is_string($imagePath)) {
+
+            $fileContent = null;
+            $livewireDisk = config('livewire.temporary_file_upload.disk', 'public');
+
+            // Case A: Valid URL (remote or storage URL)
+            if (filter_var($imagePath, FILTER_VALIDATE_URL)) {
+                $response = \Illuminate\Support\Facades\Http::timeout(30)->get($imagePath);
+                if ($response->successful()) {
+                    $fileContent = $response->body();
+                }
+            } 
+            // Case B: Check across configured disks (Livewire disk, public, local, idrive, etc.)
+            else {
+                $disks = [$livewireDisk, 'public', 'local', 'idrive', 's3'];
+
+                foreach ($disks as $disk) {
+                    try {
+                        if (\Illuminate\Support\Facades\Storage::disk($disk)->exists($imagePath)) {
+                            $fileContent = \Illuminate\Support\Facades\Storage::disk($disk)->get($imagePath);
+                            break;
+                        }
+                    } catch (\Throwable $e) {
+                        // Skip disk if it throws driver configuration errors
+                        continue;
+                    }
+                }
+
+                // Case C: Fallback to direct local path check if storage get didn't catch it
+                if (empty($fileContent)) {
+                    $localPaths = [
+                        $imagePath,
+                        storage_path('app/' . $imagePath),
+                        storage_path('app/public/livewire-tmp/' . basename($imagePath)),
+                        storage_path('app/livewire-tmp/' . basename($imagePath))
+                    ];
+
+                    foreach ($localPaths as $path) {
+                        if (file_exists($path) && filesize($path) > 0) {
+                            $fileContent = file_get_contents($path);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Final validation of the loaded file content
+            if (!empty($fileContent)) {
+                $this->image = $this->manager->read($fileContent);
+            } else {
+                throw new Exception(
+                    'Image file does not exist, is empty, or has expired: ' . $imagePath
+                );
+            }
+
         } else {
-            throw new Exception("Invalid image source.");
+            throw new Exception(
+                'Provided input is neither a valid UploadedFile nor an existing file path.'
+            );
         }
 
-        return $this;
+    } catch (Throwable $e) {
+        throw new Exception(
+            'Invalid image source: Unable to decode input. Details: ' .
+            $e->getMessage()
+        );
     }
+
+    return $this;
+}
 
     public function compress(int $rate = 70): self
     {
