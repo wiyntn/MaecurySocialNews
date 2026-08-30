@@ -5,34 +5,36 @@ window.ColibriBRConnected = false;
 window.Pusher = Pusher;
 window.Echo = Echo;
 
-Pusher.logToConsole =
-    import.meta.env.VITE_PUSHER_DEBUG_CONSOLE === 'true';
+const pusherKey = import.meta.env.VITE_PUSHER_APP_KEY;
+const pusherCluster = import.meta.env.VITE_PUSHER_APP_CLUSTER;
+
+console.log('Pusher Key:', pusherKey);
+console.log('Pusher Cluster:', pusherCluster);
 
 try {
+    if (!pusherKey) {
+        throw new Error('VITE_PUSHER_APP_KEY is missing.');
+    }
+
     window.ColibriBRD = new Echo({
         broadcaster: 'pusher',
-
-        key: import.meta.env.VITE_PUSHER_APP_KEY,
-
-        cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
-
+        key: pusherKey,
+        cluster: pusherCluster,
         forceTLS: true,
-
         enabledTransports: ['ws', 'wss'],
     });
 
     window.ColibriBRD.connector.pusher.connection.bind(
         'connected',
-        function () {
+        () => {
             console.log('📶 Websockets connection is established.');
-
             window.ColibriBRConnected = true;
         }
     );
 
     window.ColibriBRD.connector.pusher.connection.bind(
         'error',
-        function (error) {
+        (error) => {
             console.error('❌ Pusher connection error:', error);
         }
     );
