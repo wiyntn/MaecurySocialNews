@@ -86,10 +86,11 @@ RUN composer install --ignore-platform-reqs --no-dev --optimize-autoloader --no-
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Dummy Env Keys များပေး၍ Artisan Caches များ ဆောက်ခြင်း
-ENV BROADCAST_DRIVER=log
-ENV PUSHER_APP_KEY=dummy
-ENV PUSHER_APP_SECRET=dummy
-ENV PUSHER_APP_ID=dummy
+ENV BROADCAST_CONNECTION=pusher
+ENV PUSHER_APP_KEY=cbeb5b243c91d83faa33
+ENV PUSHER_APP_SECRET=8a27db515304cbb6067e
+ENV PUSHER_APP_ID=2190344
+ENV PUSHER_APP_CLUSTER=ap1
 
 RUN php artisan package:discover --ansi \
     && php artisan config:clear \
