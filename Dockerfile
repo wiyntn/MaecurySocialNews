@@ -189,11 +189,7 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 
 # ============================================================
-# Laravel runtime configuration
-#
-# IMPORTANT:
-# Do NOT hard-code PUSHER_APP_KEY / PUSHER_APP_SECRET here.
-# Render Environment Variables will provide them at runtime.
+# Laravel runtime defaults
 # ============================================================
 ENV APP_ENV=production
 ENV BROADCAST_CONNECTION=pusher
@@ -206,23 +202,8 @@ ENV PUSHER_SCHEME=https
 
 # ============================================================
 # Remove old Laravel config cache
-#
-# This prevents an old bootstrap/cache/config.php from
-# overriding Render environment variables.
 # ============================================================
 RUN rm -f bootstrap/cache/config.php
-
-
-# ============================================================
-# Laravel package discovery
-# ============================================================
-RUN php artisan package:discover --ansi
-
-
-# Clear Laravel caches
-RUN php artisan config:clear \
-    && php artisan route:clear \
-    && php artisan view:clear
 
 
 # ============================================================
