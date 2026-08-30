@@ -21,7 +21,7 @@
 		@if($hasBackButton)
 			<div class="flex justify-center mt-4">
 				<a href="{{ route('user.desktop.index') }}">
-					<x-ui.buttons.pill btnText="{{ __('labels.back_to_home') }}"></x-ui.buttons.pill>
+					<x-ui.buttons.pill size="sm" btnText="{{ __('labels.back_to_home') }}"></x-ui.buttons.pill>
 				</a>
 			</div>
 		@endif

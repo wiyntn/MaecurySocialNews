@@ -1,7 +1,7 @@
 @props([
     'type' => 'solid',
     'name' => '',
-    'fill' => false,
+    'fill' => false
 ])
 
 @php

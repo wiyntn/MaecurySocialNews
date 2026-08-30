@@ -9,24 +9,39 @@
     'placeholder' => '',
     'classes' => '',
     'name' => '',
+    'errorKey' => null,
     'value' => ''
 ])
 
 <div class="block">
     @if ($hasLabel)
-        <label class="mb-1 font-normal block text-lab-pr3 text-par-s">
+        <x-form.label>
             {{ $labelText }}
             @if (!empty($labelTextBrackets))
                 <span class="text-lab-sc">({{ $labelTextBrackets }})</span>
             @endif
-        </label>
+        </x-form.label>
     @endif
 
+    @if (isset($feedbackInfo))
+        <div class="flex justify-between mb-3">
+            @if (isset($feedbackIcon))
+                <span class="mr-2.5">
+                    {{ $feedbackIcon }}
+                </span>
+            @endif
+            <x-form.helper-text>
+                {{ $feedbackInfo }}
+            </x-form.helper-text>
+        </div>
+    @endif
+
+
     @if ($asText)
-        <div class="block relative group">
+        <div class="relative overflow-hidden rounded-xl group border-2 border-transparent hover:border-brand-900 smoothing">
             <textarea
                 x-ref="input"
-                class="block w-full bg-input-pr read-only:opacity-90 tracking-normal min-h-24 placeholder:font-light outline-hidden text-par-s text-lab-pr px-5 py-4 rounded-xl {{ $classes }}"
+                class="block w-full bg-input-pr field-sizing-content max-h-96 overflow-y-auto read-only:opacity-90 tracking-normal min-h-24 outline-hidden text-par-m text-lab-pr px-4 py-4 {{ $classes }}"
                 placeholder="{{ $placeholder }}"
             name="{{ $name }}" {{ $attributes }}>{{ $value }}</textarea>
 
@@ -35,17 +50,16 @@
             </div>
         </div>
     @else
-        <div class="block relative">
+        <div class="rounded-xl relative overflow-hidden border-2 border-transparent hover:border-brand-900 smoothing" x-data="{ inputType: '{{ $inputType }}' }">
             <input
                 x-ref="input"
-                class="block w-full bg-input-pr read-only:opacity-50 read-only:cursor-not-allowed tracking-normal placeholder:font-light outline-hidden text-par-s text-lab-pr px-5 py-4 rounded-xl {{ $classes }}"
+                x-bind:type="inputType"
+                class="block w-full bg-input-pr read-only:opacity-50 read-only:cursor-not-allowed tracking-normal outline-hidden text-par-m text-lab-pr px-4 h-12 {{ $classes }}"
                 placeholder="{{ $placeholder }}"
                 name="{{ $name }}"
-                type="{{ $inputType }}"
                 @if ($isReadonly)
                     readonly
                 @endif
-                x-on:input="inputTextLength = $event.target.value.length"
             value="{{ $value }}" {{ $attributes }}>
 
             @if (isset($inputIcon))
@@ -55,37 +69,27 @@
             @endif
 
             @if ($isPassword)
-                <span class="absolute right-0 top-0">
-                    <button class="size-6 cursor-pointer" type="button">
-                        @if ($inputType == 'password')
+                <span class="absolute right-0 top-0 h-full inline-flex-center px-4 bg-input-pr">
+                    <button x-on:click="inputType = (inputType == 'password' ? 'text' : 'password')" class="size-6 cursor-pointer text-bord-sc outline-hidden" type="button">
+                        <template x-if="inputType == 'password'">
                             <x-ui-icon name="eye" type="solid" classes="size-full text-bord-sc" />
-                        @else
+                        </template>
+                        <template x-if="inputType == 'text'">
                             <x-ui-icon name="eye-off" type="solid" classes="size-full text-bord-sc" />
-                        @endif
+                        </template>
                     </button>
                 </span>
             @endif
         </div>
     @endif
 
-    @if($errors->has($name))
-        @error($name)
-            <x-form.valerr>  
-                {{ $message }}
-            </x-form.valerr>
-        @enderror
-    @else
-        @if (isset($feedbackInfo))
-            <div class="flex justify-between mt-0.5 px-1">
-                @if (isset($feedbackIcon))
-                    <span class="mr-2.5">
-                        {{ $feedbackIcon }}
-                    </span>
-                @endif
-                <span class="text-cap-l text-lab-sc font-normal tracking-normal w-9/12">
-                    {{ $feedbackInfo }}
-                </span>
+    @if($errors->has($errorKey ?? $name))
+        @error($errorKey ?? $name)
+            <div class="mt-2">
+                <x-form.valerr>
+                    {{ $message }}
+                </x-form.valerr>
             </div>
-        @endif
+        @enderror
     @endif
 </div>

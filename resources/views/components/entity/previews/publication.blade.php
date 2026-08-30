@@ -21,16 +21,16 @@
 		<div class="p-4">
 			@if($postData->content)
 				<div class="mb-4">
-					<p class="text-lab-sc text-par-s line-clamp-6 leading-snug">
+					<p class="text-lab-sc text-par-m line-clamp-6 leading-snug">
 						{!! nl2br($postData->content) !!}
 					</p>
 				</div>
 			@endif
-			<p class="text-lab-sc text-par-s">
+			<p class="text-lab-sc text-par-m">
 				{{ $postData->created_at->getCalendar() }}
 			</p>
 			<a href="{{ $postData->url }}" class="block mt-4" target="_blank">
-				<x-ui.buttons.pill type="button" width="w-full" btnText="{{ __('admin/dd.post.view_publication') }}"></x-ui.buttons.pill>
+				<x-ui.buttons.pill size="sm" type="button" width="w-full" btnText="{{ __('admin/dd.post.view_publication') }}"></x-ui.buttons.pill>
 			</a>
 		</div>
 	</div>

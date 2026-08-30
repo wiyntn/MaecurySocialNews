@@ -5,14 +5,14 @@
 
 <div class="block">
     @if ($hasLabel)
-        <label class="mb-2 font-normal block text-lab-pr3 text-par-s">
+        <x-form.label>
             {{ $labelText }}
             @if (!empty($labelTextBrackets))
                 <span class="text-lab-sc">({{ $labelTextBrackets }})</span>
             @endif
-        </label>
+        </x-form.label>
     @endif
-    <div class="bg-transparent border border-edge-tr rounded-lg overflow-hidden inline-flex leading-none">
+    <div class="bg-transparent border border-edge-tr rounded-xl overflow-hidden inline-flex leading-none">
         {{ $slot }}
     </div>
 </div>

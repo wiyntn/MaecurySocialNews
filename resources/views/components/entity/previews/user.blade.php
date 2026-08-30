@@ -15,23 +15,23 @@
 				<h4 class="text-lab-pr2 text-par-l font-semibold">
 					{{ $userData->name }}
 				</h4>
-				<p class="text-lab-sc text-par-s">
+				<p class="text-lab-sc text-par-m">
 					{{ $userData->caption }}
 				</p>
 
-				<p class="text-lab-sc text-par-s">
+				<p class="text-lab-sc text-par-m">
 					{{ '@' . $userData->username }}
 				</p>
 
 				@if($userData->bio)
-					<p class="text-lab-sc text-par-s mt-2 leading-snug">
+					<p class="text-lab-sc text-par-m mt-2 leading-snug">
 						{!! nl2br($userData->bio) !!}
 					</p>
 				@endif
 			</div>
 
 			<a href="{{ $userData->profile_url }}" target="_blank">
-				<x-ui.buttons.pill type="button" width="w-full" btnText="{{ __('admin/users.view_profile') }}"></x-ui.buttons.pill>
+				<x-ui.buttons.pill size="sm" type="button" width="w-full" btnText="{{ __('admin/users.view_profile') }}"></x-ui.buttons.pill>
 			</a>
 		</div>
 	</div>

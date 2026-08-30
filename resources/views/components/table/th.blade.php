@@ -1,5 +1,5 @@
 @props(['classes' => ''])
 
-<th class="text-left text-par-s text-lab-pr2 px-2 first:pl-0 last:pr-0 font-medium pb-2 {{ $classes }} border-b-2 border-b-bord-pr">
+<th class="text-left text-par-s text-lab-pr2 px-2 first:pl-5 last:pr-5 font-medium pb-4 {{ $classes }} border-b-6 border-b-bord-tr" {{ $attributes }}>
     {{ $slot }}
 </th>

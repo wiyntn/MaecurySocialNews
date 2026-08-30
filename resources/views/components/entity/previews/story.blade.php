@@ -15,18 +15,18 @@
 		</div>
 		<div class="p-4 overflow-hidden">
 			@if($storyData->content)
-				<p class="text-lab-sc text-par-s mb-2 line-clamp-6 leading-snug">
+				<p class="text-lab-sc text-par-m mb-2 line-clamp-6 leading-snug">
 					{{ nl2br($storyData->content) }}
 				</p>
 			@endif
 
-			<p class="text-lab-sc text-par-s">
+			<p class="text-lab-sc text-par-m">
 				{{ $storyData->created_at->getCalendar() }}
 			</p>
 
 			@unless($storyData->isExpired())
 				<a href="{{ $storyData->story->url }}" class="block mt-4" target="_blank">
-					<x-ui.buttons.pill type="button" width="w-full" btnText="{{ __('admin/dd.story.view_story') }}"></x-ui.buttons.pill>
+					<x-ui.buttons.pill size="sm" type="button" width="w-full" btnText="{{ __('admin/dd.story.view_story') }}"></x-ui.buttons.pill>
 				</a>
 			@endif
 		</div>

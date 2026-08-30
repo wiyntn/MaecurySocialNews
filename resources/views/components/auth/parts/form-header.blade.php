@@ -2,14 +2,16 @@
     'title' => ''
 ])
 
-<div class="block">
+<div class="block text-center">
     @if (isset($icon))
-        <div class="size-8 overflow-hidden text-lab-pr2 mb-2">
-            {!! $icon !!}
+        <div class="flex justify-center">
+            <div class="size-8 overflow-hidden text-lab-pr2 mb-2">
+                {!! $icon !!}
+            </div>
         </div>
     @endif
 
-    <h1 class="text-title-1 text-lab-pr2 font-semibold tracking-tighter">
+    <h1 class="text-title-2 text-lab-pr2 font-semibold">
         {!! $title !!}
     </h1>
 

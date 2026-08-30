@@ -6,16 +6,16 @@
 		<h4 class="text-par-l font-semibold mb-1 text-lab-pr2">
 			{{ __('admin/info.env_edit_notice.title') }}
 		</h4>
-		<p class="text-par-s text-lab-sc mb-2">
+		<p class="text-par-m text-lab-sc mb-2">
 			{!! __('admin/info.env_edit_notice.line_one') !!}
 		</p>
 
-		<p class="text-par-s text-lab-sc mb-4">
+		<p class="text-par-m text-lab-sc mb-4">
 			{!! __('admin/info.env_edit_notice.line_two') !!}
 		</p>
 
 		<div class="p-4 bg-fill-qt rounded-lg">
-			<p class="text-par-s text-lab-pr2">
+			<p class="text-par-m text-lab-pr2">
 				{!! __('admin/info.env_edit_notice.env_privacy') !!}
 			</p>
 		</div>

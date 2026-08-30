@@ -1,9 +1,22 @@
-@props(['title', 'value', 'iconName' => 'user', 'iconType' => 'line'])
+@props(['title', 'value', 'iconName' => 'user', 'desc' => '', 'hasLink' => true])
 
-<div class="bg-input-pr rounded-lg p-4 relative">
-	<div class="flex items-center gap-2 size-icon-small text-lab-sc absolute top-5 right-4">
-		<x-ui-icon :name="$iconName" :type="$iconType"/>
+<div class="bg-bg-pr rounded-2xl p-6 relative group cursor-pointer smoothing hover:-translate-y-1 hover:shadow-xs border border-bord-sc">
+	<div class="flex flex-col min-h-44">
+		<div class="shrink-0 size-8 text-brand-900/80">
+			<x-ui-icon name="{{ $iconName }}" type="solar"></x-ui-icon>
+		</div>
+		<div class="mb-8">
+			<span class="text-title-3 block text-lab-pr2 font-bold mt-2">{{ $title }}</span>
+			<span class="text-par-m block text-lab-sc">
+				{{ $desc }}
+			</span>
+		</div>
+		<span class="mt-auto text-title-1 leading-none block text-lab-pr2 font-bold font-outfit tracking-tight">{{ $value }}</span>
+
+		@if($hasLink)
+			<div class="absolute bottom-4 right-4 size-icon-small text-lab-tr group-hover:text-brand-900">
+				<x-ui-icon name="arrow-up-right" type="line"></x-ui-icon>
+			</div>
+		@endif
 	</div>
-	<span class="block text-5xl tracking-tighter leading-none lowercase font-light font-outfit text-lab-pr2 mb-1">{{ $value }}</span>
-	<span class="text-par-s block text-lab-sc opacity-70">{{ $title }}</span>
 </div>

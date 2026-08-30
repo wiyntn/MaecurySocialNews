@@ -6,7 +6,7 @@
 
 <div class="flex justify-between">
 	<div class="leading-none">
-		<h4 class="text-par-n font-medium text-lab-pr2">
+		<h4 class="text-par-m font-bold text-lab-pr">
 			{{ $title }}
 		</h4>
 	</div>

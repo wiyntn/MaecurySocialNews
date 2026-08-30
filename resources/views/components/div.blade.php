@@ -1,1 +1,6 @@
-<div class="h-px bg-bord-pr"></div>
+@props([
+    'classes' => '',
+])
+
+
+<div class="h-px bg-bord-pr {{ $classes }}"></div>

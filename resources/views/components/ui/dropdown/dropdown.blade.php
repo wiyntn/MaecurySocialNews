@@ -4,11 +4,12 @@
         'transition-all',
         'ease-in-out',
         'min-w-72',
-        'rounded-md',
+        'rounded-2xl',
+        'overflow-hidden',
         'bg-bg-pr/80',
         'backdrop-blur-xs',
         'z-40',
-        'shadow-lg',
+        'shadow-2xl',
         'min-h-10'
     ],
     'classes' => [

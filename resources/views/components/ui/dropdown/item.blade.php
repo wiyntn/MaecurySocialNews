@@ -4,9 +4,9 @@
     'danger' => false,
 ])
 
-<{{ $tag }} class="border-b border-fill-pr block last:border-none cursor-pointer {{ $danger ? 'text-red-900' : 'text-lab-pr' }}" {{ $attributes }}>
-    <div class="py-2.5 px-4 flex leading-none items-center hover:bg-fill-qt smoothing">
-        <span class="mr-auto text-par-n tracking-tight whitespace-nowrap">
+<{{ $tag }} class=" block last:border-none cursor-pointer {{ $danger ? 'text-red-900' : 'text-lab-pr' }}" {{ $attributes }}>
+    <div class="py-3.5 px-4 flex leading-none items-center hover:bg-fill-qt smoothing">
+        <span class="mr-auto text-par-m font-medium whitespace-nowrap">
             {{ $itemText }}
         </span>
 

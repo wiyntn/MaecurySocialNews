@@ -11,7 +11,7 @@
 			{{ $name }}
 		</h4>
 		@if ($description)
-			<p class="text-par-s text-lab-sc">
+			<p class="text-par-m text-lab-sc">
 				{!! $description !!}
 			</p>
 		@endif

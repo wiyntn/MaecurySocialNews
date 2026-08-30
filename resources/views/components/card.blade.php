@@ -1,3 +1,3 @@
-<div class="border border-bord-pr rounded-2xl">
+<div class="rounded-2xl bg-bg-pr border border-bord-sc">
 	{{ $slot }}
 </div>
