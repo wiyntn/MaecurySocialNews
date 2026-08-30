@@ -4,8 +4,17 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-RUN npm run build
+# Dummy Env Keys များပေး၍ Artisan Caches များ ဆောက်ခြင်း
+ENV BROADCAST_CONNECTION=pusher
+ENV PUSHER_APP_KEY=cbeb5b243c91d83faa33
+ENV PUSHER_APP_SECRET=8a27db515304cbb6067e
+ENV PUSHER_APP_ID=2190344
+ENV PUSHER_APP_CLUSTER=ap1
+ENV VITE_PUSHER_APP_KEY =cbeb5b243c91d83faa33
+ENV VITE_PUSHER_APP_CLUSTER=ap1
+ENV VITE_PUSHER_DEBUG_CONSOLE =false
 
+RUN npm run build
 # --- Stage 2: PHP & Application Setup ---
 FROM php:8.4-fpm-alpine
 
@@ -85,15 +94,6 @@ RUN composer install --ignore-platform-reqs --no-dev --optimize-autoloader --no-
 # Project ထဲမှ supervisord.conf ကို Container ထဲသို့ Copy ကူးပေးခြင်း
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Dummy Env Keys များပေး၍ Artisan Caches များ ဆောက်ခြင်း
-ENV BROADCAST_CONNECTION=pusher
-ENV PUSHER_APP_KEY=cbeb5b243c91d83faa33
-ENV PUSHER_APP_SECRET=8a27db515304cbb6067e
-ENV PUSHER_APP_ID=2190344
-ENV PUSHER_APP_CLUSTER=ap1
-ENV VITE_PUSHER_APP_KEY =cbeb5b243c91d83faa33
-ENV VITE_PUSHER_APP_CLUSTER=ap1
-ENV VITE_PUSHER_DEBUG_CONSOLE = false
 
 RUN php artisan package:discover --ansi \
     && php artisan config:clear \
