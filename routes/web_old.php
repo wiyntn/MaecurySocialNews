@@ -19,39 +19,29 @@ use Illuminate\Support\Facades\Cookie;
 
 Route::name('user.')->group(function() {
     Route::get('/switch-language/{lang}', [App\Http\Controllers\User\Language\LanguageController::class, 'switchLanguage'])->name('language.switch');
-    Route::middleware(['features.status:dark_theme'])->get('/switch-theme/{theme}', [App\Http\Controllers\User\Theme\ThemeController::class, 'switchTheme'])->name('theme.switch');
+    Route::get('/switch-theme/{theme}', [App\Http\Controllers\User\Theme\ThemeController::class, 'switchTheme'])->name('theme.switch');
 });
 
 Route::name('user.')->prefix('auth')->middleware(['guest'])->group(function() {
     Route::get('/login', [App\Http\Controllers\User\Auth\AuthController::class, 'index'])->name('auth.index');
     Route::get('/signup', [App\Http\Controllers\User\Auth\AuthController::class, 'signup'])->name('auth.signup');
     Route::get('/forgot-password', [App\Http\Controllers\User\Auth\AuthController::class, 'forgotPassword'])->name('auth.forgot');
+    Route::get('/forgot-success/{token}', [App\Http\Controllers\User\Auth\AuthController::class, 'forgotSuccess'])->name('auth.forgot-success');
     Route::get('/reset-password/{token}', [App\Http\Controllers\User\Auth\AuthController::class, 'resetPassword'])->name('auth.reset');
+    Route::get('/signup-success/{token}', [App\Http\Controllers\User\Auth\AuthController::class, 'signupSuccess'])->name('auth.signup-success');
     Route::get('/confirm-signup/{token}', [App\Http\Controllers\User\Auth\AuthController::class, 'confirmSignup'])->name('auth.confirm-signup');
-    Route::get('/forgot-success/{hashId}', [App\Http\Controllers\User\Auth\AuthController::class, 'forgotSuccess'])->name('auth.forgot-success');
-    Route::get('/signup-success/{hashId}', [App\Http\Controllers\User\Auth\AuthController::class, 'signupSuccess'])->name('auth.signup-success');
-});
-
-Route::name('admin.')->prefix(config('app.admin_prefix'))->middleware(['guest'])->group(function() {
-    Route::get('/login', [App\Http\Controllers\Admin\Auth\AuthController::class, 'login'])->name('auth.login');
 });
 
 Route::name('user.')->prefix('auth')->middleware(['auth'])->group(function() {
-    Route::middleware(['features.status:link_accounts'])
-        ->get('/link-account', [App\Http\Controllers\User\Auth\LinkerController::class, 'index'])
-        ->name('linker.index');
-
-    Route::get('/logout', [App\Http\Controllers\User\Auth\AuthController::class, 'logout'])->name('auth.logout');
+    Route::get('/link-account', [App\Http\Controllers\User\Auth\LinkerController::class, 'index'])->name('linker.index');
 });
 
 Route::name('user.')->prefix('onboarding')->middleware(['auth'])->group(function() {
-    Route::get('/step/{step}', [App\Http\Controllers\User\Onboarding\OnboardingController::class, 'index'])->name('onboarding.index');
+    Route::get('/step-{step}', [App\Http\Controllers\User\Onboarding\OnboardingController::class, 'index'])->whereIn('step', ['one', 'two', 'three', 'four'])->name('onboarding.index');
 });
 
 Route::prefix('switcher')->get('/device/{type}', function ($type) {
-
-    // 1 year
-    Cookie::queue('device_type', $type, (60 * 60 * 24 * 365));
+    Cookie::queue('device_type', $type);
 
     return redirect()->back();
 })->name('device.switch')->whereIn('type', ['desktop', 'mobile']);
@@ -59,7 +49,7 @@ Route::prefix('switcher')->get('/device/{type}', function ($type) {
 Route::middleware(['user.status', 'auth:sanctum'])->group(function() {
     Route::get('/', function () {
         $deviceType = Cookie::get('device_type', 'desktop');
-
+        
         if($deviceType == 'mobile') {
             return view('mobile::index');
         }
@@ -71,7 +61,7 @@ Route::middleware(['user.status', 'auth:sanctum'])->group(function() {
 
     Route::get('{any}', function (Request $request) {
         $deviceType = Cookie::get('device_type', 'desktop');
-
+        
         if($deviceType == 'mobile') {
             return view('mobile::index');
         }
