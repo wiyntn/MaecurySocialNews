@@ -29,4 +29,29 @@ return [
 		'title' => 'Delete chat?',
 		'desc' => 'This will remove the chat from your view, but they will remain visible to other participants.',
 	],
+	'leave_group' => [
+		'title' => 'Leave group?',
+		'description' => 'Are you sure you want to leave this group? You and your messages will be removed from the group.',
+		'confirm' => 'Leave group',
+	],
+	'delete_group' => [
+		'title' => 'Delete group?',
+		'description' => 'Are you sure you want to delete this group? Group will be deleted for all participants also.',
+		'confirm' => 'Delete group',
+	],
+	'decline_invitation' => [
+		'title' => 'Decline invitation?',
+		'description' => 'Are you sure you want to decline this invitation? You will not be able to join the group.',
+		'confirm' => 'Decline invitation',
+	],
+	'logout' => [
+		'title' => 'Leaving already?',
+		'description' => 'Logging out will end your current session. Do you want to proceed?',
+		'confirm' => 'Yes, logout',
+	],
+    'unblock_user' => [
+        'title' => 'Unblock user?',
+        'description' => 'This user will now be able to see your posts, follow and message you. They won’t be notified you unblocked them.',
+        'confirm' => 'Unblock user',
+    ],
 ];

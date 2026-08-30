@@ -2,8 +2,7 @@
 
 return [
 	'jobs_title' => 'Jobs',
-	'jobs_description' => 'Find the best jobs for you 🔥',
-	'search_job_placeholder' => 'Search jobs',
+	'bookmarks_title' => 'Saved Jobs',
 	'job_filter_label' => 'Filter and refine',
 	'bookmarked' => 'Bookmarked',
 	'vacancy' => 'Vacancy',
@@ -13,6 +12,16 @@ return [
 	'remote_job' => 'Remote job',
 	'office_job' => 'Office job',
 	'income_from' => 'From {amount}',
+	'jobs_overview' => 'Jobs overview',
 	'income_to' => 'To {amount}',
-	'saved_jobs_count' => 'You have saved ({count}) jobs',
+	'nav_menu' => [
+		'create_job' => [
+			'title' => 'Create job',
+			'description' => 'Create a new job listing on your business account.',
+		],
+		'bookmarks' => [
+			'title' => 'Bookmarks',
+			'description' => 'View your saved job bookmarks.',
+		]
+	],
 ];

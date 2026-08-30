@@ -2,12 +2,9 @@
 
 return [
     'index_title' => 'Languages',
-    'index_desc' => 'Manage the languages of the application.',
     'show_title' => 'Language Details',
-    'show_desc' => 'Here you view language details, toggle the status, or change the default language.',
     'about_lang' => 'About Language',
     'create_title' => 'Add new language',
-    'create_desc' => 'Here you can add a new language to the application.',
     'tabs' => [
         'all' => 'All languages',
         'add' => 'Add new language',

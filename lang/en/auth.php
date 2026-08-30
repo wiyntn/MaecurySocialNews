@@ -12,7 +12,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    
+
     'failed' => 'These credentials do not match our records.',
     'email_blocked' => 'Your email address has been blocked and can not be used to created and account on this platform.',
     'ip_blocked' => 'Your IP address has been blocked and can not be used to access this platform.',
@@ -31,6 +31,12 @@ return [
     'linked_account_error' => 'This account is already linked to another :app_name account.',
     'already_linked_account_error' => 'This account is already linked to your current :app_name account.',
     'master_account_error' => 'Please use your :app_name master account to link other accounts.',
+    'registration_disabled' => 'Registration is currently disabled. Please try again later.',
+    'login_disabled' => 'Login is currently disabled. Please try again later.',
+    'login_to_cp' => [
+        'title' => 'Admin Panel',
+        'caption' => 'Enter your admin login and password.',
+    ],
     'login_to_app' => [
         'title' => 'Login to :app_name',
         'caption' => 'We are glad to see you again!',

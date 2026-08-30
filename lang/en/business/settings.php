@@ -9,6 +9,7 @@ return [
     'last_submission' => 'Your have successfully submitted your business account information. Your last update was on :date.',
     'no_submission' => 'You have not submitted your business account information yet. In order to be reviewed and approved, please submit your information.',
     'form' => [
+        'country_placeholder' => 'Select country',
         'base_info' => 'Base Information',
         'name' => 'Name',
         'name_placeholder' => 'Business name',
@@ -47,7 +48,7 @@ return [
         'website_helper' => 'If you have a website, enter the URL here.',
         'save_button' => 'Save changes',
         'cancel_button' => 'Cancel',
-        'tos_agreement' => 'This information is used only for admin verification, legal compliance, and platform security. It will not be shown to other users or shared with third parties. <br><br> By clicking the "Save changes" button, you agree to the <a href=":url" class="text-brand-900 underline">Terms of Service</a> and <a href=":url" class="text-brand-900 underline">Privacy Policy</a>.',
+        'tos_agreement' => 'This information is used only for admin verification, legal compliance, and platform security. It will not be shown to other users or shared with third parties. By clicking the "Save changes" button, you agree to the <a href=":url" class="text-brand-900 underline">Terms of Service</a> and <a href=":url" class="text-brand-900 underline">Privacy Policy</a>.',
     ],
     'edit_account_btn' => 'Edit business account information',
     'business_info_policy' => 'Business Information Policy',

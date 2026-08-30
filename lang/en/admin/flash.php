@@ -7,9 +7,17 @@ return [
 	'user' => [
 		'delete_success' => 'User deleted successfully!',
 		'delete_self' => 'You cannot delete your own account!',
+		'authorize_success' => 'User authorized successfully!',
+		'unauthorize_success' => 'User unauthorized successfully!',
+		'authorize_reject' => 'Request is rejected successfully!',
+		'verify_success' => 'User verified successfully!',
+		'unverify_success' => 'User unverified successfully!',
+		'wallet_balance_success' => 'Wallet balance updated to :amount successfully!',
 	],
 	'post' => [
 		'delete_success' => 'Post deleted successfully!',
+		'pin_success' => 'Post pinned successfully!',
+		'unpin_success' => 'Post unpinned successfully!',
 	],
 	'ad' => [
 		'delete_success' => 'Ad deleted successfully!',
@@ -49,5 +57,24 @@ return [
 	],
 	'ban' => [
 		'delete_success' => 'Ban deleted successfully! Please reset cache to make changes effective.',
+	],
+	'category' => [
+		'create_success' => 'Category created successfully!',
+		'update_success' => 'Category updated successfully!',
+		'delete_success' => 'Category deleted successfully!',
+	],
+	'page' => [
+		'update_success' => 'Page updated successfully!',
+	],
+	'chat' => [
+		'delete_success' => 'Chat deleted successfully!',
+	],
+	'config' => [
+        'settings_success' => 'Settings updated successfully!',
+	],
+	'cashout' => [
+		'deleted_success' => 'Cashout request deleted successfully!',
+		'marked_as_paid_success' => 'Cashout request marked as paid successfully!',
+		'rejected_success' => 'Cashout request rejected successfully!',
 	],
 ];

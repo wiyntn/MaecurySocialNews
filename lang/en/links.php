@@ -7,4 +7,5 @@ return [
     'privacy_policy' => 'Privacy Policy',
     'cookies_policy' => 'Cookie Files Policy',
     'developers' => 'API Documentation',
+    'pw_learn_more' => 'Learn more about PWA',
 ];

@@ -11,4 +11,11 @@ return [
 	],
 	'notifications_sound' => 'Notifications sound',
 	'no_notifications' => 'No notifications yet',
+	'date_sections' => [
+		'today' => 'Today',
+		'yesterday' => 'Yesterday',
+		'this_week' => 'This week',
+		'this_month' => 'This month',
+		'earlier' => 'Earlier'
+	]
 ];

@@ -3,9 +3,8 @@
 return [
 	'create_title' => 'Create new product',
 	'index_title' => 'My products',
-	'index_desc' => 'Here you can view and manage all your products listed on the marketplace.',
 	'show_title' => 'Product overview',
-	'show_desc' => 'You can view product details, metrics and manage it here.',
+	'edit_title' => 'Edit product',
 	'product_page' => 'Product page',
 	'product_is_inactive' => 'This product is currently inactive and not visible to the public.',
 	'tabs' => [
@@ -14,6 +13,8 @@ return [
 		'archived' => 'Archived products',
 	],
 	'form' => [
+		'category_placeholder' => 'Select category',
+		'condition_placeholder' => 'Select condition',
 		'base_info' => 'Base Information',
 		'price_info' => 'Product Price',
 		'media_info' => 'Product Images',
@@ -33,7 +34,7 @@ return [
 		'photos' => 'Add Photos',
 		'product_image' => 'Product image',
 		'photos_placeholder' => 'Select Image',
-		'photos_helper' => 'The optimal image size for products is :width x :height pixels. <br> You can upload up to 5 images in JPG, GIF or PNG format. <br><br> They will be visible to all users in the catalog',
+		'photos_helper' => 'The optimal image size for products is :width x :height pixels. You can upload up to 5 images in JPG, GIF or PNG format. They will be visible to all users in the catalog',
 		'name' => 'Name',
 		'name_placeholder' => 'Enter name',
 		'name_helper' => 'What do you want to sell? Write the full name of the product',
@@ -51,7 +52,7 @@ return [
 		'create_button' => 'Create product',
 		'save_button' => 'Save changes',
 		'cancel_button' => 'Cancel',
-		'tos_agreement' => 'By listing an item, you agree that all items on the Marketplace are visible to all users. <br><br> Also, the sale of prohibited goods (animals, drugs, weapons, counterfeit goods, and other goods that violate intellectual property rights) is strictly prohibited.',
+		'tos_agreement' => 'By listing an item, you agree that all items on the Marketplace are visible to all users. Also, the sale of prohibited goods (animals, drugs, weapons, counterfeit goods, and other goods that violate intellectual property rights) is strictly prohibited.',
 		'tos_agreement_link' => 'For more details, please see our Trading Rules.'
 	],
 	'validation' => [

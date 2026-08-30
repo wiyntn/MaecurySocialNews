@@ -7,7 +7,10 @@ return [
     'close' => 'Close',
     'city' => 'City',
     'male' => 'Male',
+    'reader' => 'Reader',
+    'author' => 'Author',
     'username' => 'Username',
+    'participants' => 'Participants',
     'back_to_home' => 'Back to homepage',
     'choose_username' => 'Choose a username',
     'choose_username_helper' => 'Username can contain only Latin letters, numbers, dots, and underscores',
@@ -51,6 +54,7 @@ return [
     'not_public_info' => 'This information will not be made publicly available.',
     'hi_user' => 'Hello, :name! 👋',
     'continue' => 'Continue',
+    'logout' => 'Logout',
     'approval' => 'Approval',
     'whats_name' => 'What is your name?',
     'whats_city' => 'Your city name',
@@ -61,7 +65,7 @@ return [
     'unknown' => 'Unknown',
     'signup_almost_done' => [
         'title' => 'You\'re almost there!',
-        'caption' => 'Your account is almost ready, all that\'s left is to tell us a little about yourself' 
+        'caption' => 'Your account is almost ready, all that\'s left is to tell us a little about yourself'
     ],
     'document' => 'Document',
     'image' => 'Image',
@@ -79,17 +83,24 @@ return [
     ],
     'status_labels' => [
         'active' => 'Active',
+        'paid' => 'Paid',
         'inactive' => 'Inactive',
         'draft' => 'Draft',
         'deleted' => 'Deleted',
         'pending' => 'Pending',
         'paused' => 'Paused',
+        'rejected' => 'Rejected',
+        'cancelled' => 'Cancelled',
         'completed' => 'Completed',
         'active' => 'Active',
         'published' => 'Published',
         'draft' => 'Draft',
         'ignored' => 'Ignored',
         'processed' => 'Processed'
+    ],
+    'chat_type_labels' => [
+        'direct' => 'Direct',
+        'group' => 'Group'
     ],
     'approval_labels' => [
         'approved' => 'Approved',
@@ -114,7 +125,8 @@ return [
         'post' => 'Publication',
         'comment' => 'Comment',
         'user' => 'Profile',
-        'story' => 'Story'
+        'story' => 'Story',
+        'group' => 'Group'
     ],
     'media_type_labels' => [
         'text' => 'Text',
@@ -137,6 +149,11 @@ return [
         'refunded' => 'Refunded',
         'chargeback' => 'Chargeback',
         'chargeback_reversed' => 'Chargeback reversed'
+    ],
+    'category_type_labels' => [
+        'product' => 'Product',
+        'job' => 'Job',
+        'uncategorized' => 'Uncategorized',
     ],
     'uncategorized' => 'Uncategorized',
     'learn_more' => 'Learn more',

@@ -2,9 +2,9 @@
 
 return [
 	'market_title' => 'Market',
-	'market_description' => 'Find the best products for you 🔥',
 	'bookmarks_title' => 'Bookmarked products',
 	'product_title' => 'Product overview',
+	'bookmarks_title' => 'Saved products',
 	'search_product_placeholder' => 'Search products',
 	'product_filter_label' => 'Filter and refine',
 	'saved_products_count' => 'You have saved {count} products',
@@ -34,5 +34,15 @@ return [
 		'condition' => 'Condition',
 		'currency' => 'Currency',
 		'type' => 'Type',
+	],
+	'nav_menu' => [
+		'create_product' => [
+			'title' => 'Create product',
+			'description' => 'Create a new product and start selling.',
+		],
+		'bookmarks' => [
+			'title' => 'Bookmarks',
+			'description' => 'View your saved product bookmarks.',
+		]
 	],
 ];

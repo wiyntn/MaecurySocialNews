@@ -21,4 +21,5 @@ return [
     'empty_state' => require __DIR__ . '/empty_state.php',
     'button' => require __DIR__ . '/button.php',
     'dd' => require __DIR__ . '/dd.php',
+    'info' => require __DIR__ . '/info.php',
 ];

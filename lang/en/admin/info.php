@@ -47,6 +47,47 @@ return [
 		'title' => 'Laravel Ecosystem 🚀',
 		'line_one' => 'ColibriPlus is built on top of Laravel :laravel_version. <a href="https://www.laravel.com" target="_blank" class="text-brand-900">Learn more</a>',
 		'line_two' => 'It means that you are free to use any Laravel ecosystem tools, packages and services you want.'
-	]
+	],
+	'category_notice' => [
+		'title' => 'Category',
+		'line_one' => 'Create entity categories (e.g., products or vacancies) to fit your needs. Add translations so category names match each user’s selected language.',
+	],
+	'page_edit_notice' => [
+		'title' => 'Static Page',
+		'line_one' => 'Static pages are used to display legal or informational content related to your project. For example: Cookies Policy, Privacy Policy, Terms of Service, About your company, and similar pages.',
+		'line_two' => 'You can add translations for each supported language so the information is shown to users in their preferred language.',
+	],
+	'chat_notice' => [
+		'title' => 'Direct Chat',
+		'line_one' => 'A chat is a private conversation between two or more users. In this version, message contents viewing is not supported from the admin panel.',
+		'line_two' => 'You may delete an entire chat if necessary.',
+	],
+	'smtp_solutions' => [
+		'title' => 'Do not have an SMTP server?',
+		'line_one' => 'Easiast way is to use a third-party free SMTP service like Google SMTP, SendGrid, or Amazon SES.',
+		'line_two' => 'You can also use a local SMTP server like Postfix or Exim.',
+        'line_three' => 'Check out the documentation for more information.',
+	],
+	'ffmpeg_notice' => [
+		'title' => 'Where is FFMPEG used in :app_name?',
+		'line_one' => 'FFMPEG is used in :app_name to compress user\'s videos before uploading to the platform to optimize the platform performance and reduce the storage usage.',
+        'line_two' => 'It converts all uploaded videos to the platform default format (MP4).',
+	],
+    'acquiring_notice' => [
+        'title' => 'What is Acquiring?',
+        'line_one' => 'Acquiring enables users to top up their in-app wallet, which can be spent on in-app purchases and services.',
+        'line_two' => 'To activate acquiring, choose a payment provider and configure its API credentials below.',
+        'line_three' => 'API keys are issued directly by your payment provider.',
+    ],
+    'social_login_notice' => [
+        'title' => 'What is Social Login?',
+        'line_one' => 'Social login allows users to log in to your application using their social media accounts.',
+        'line_two' => 'To activate social login, choose a social media provider and configure its API credentials below.',
+        'line_three' => 'Credentials are issued directly by your social media provider.',
+    ],
+    'wallet_notice' => [
+        'title' => 'What is Wallet?',
+        'line_one' => 'Wallet empowers your users to have a in-app balance to pay for platform services and in-app purchases.',
+        'line_two' => 'You can enable any payment provider you want to allow users to deposit funds to their wallet.',
+    ],
 ];
-

@@ -4,8 +4,10 @@ return [
 	'report_sent' => 'Thank you for your report. We will review it and take appropriate action.',
 	'share_copied' => 'Link has been copied to clipboard!',
 	'profile_link_copied' => 'Profile link has been copied to clipboard!',
+	'post_published' => 'The post has been published!',
+    'user_muted' => 'All notifications from this user will be silenced!',
+    'user_unmuted' => 'User is unmuted! You will receive notifications from them again.',
 	'media' => [
-		'post_published' => 'The post has been published!',
 		'post_deleted' => 'The post has been deleted!',
 		'comment_deleted' => 'Comment has been deleted!',
 	],
@@ -41,6 +43,13 @@ return [
 		'message_deleted' => 'Message was deleted.',
 		'chat_cleared' => 'Chat conversation has been cleared.',
 		'chat_deleted' => 'Chat has been deleted.',
+		'joined_group' => 'You have joined ({name}) group.',
+		'left_group' => 'You have left ({name}) group.',
+		'delete_group' => 'You have delete your ({name}) group.',
+		'chat_archived' => 'Chat has been archived.',
+		'chat_unarchived' => 'Chat has been unarchived.',
+		'declined_invitation' => 'You have declined the invitation to ({name}) group.',
+		'invite_participants_sent' => 'Participants have been invited to the group. Please wait until they accept the invitation.',
 	],
 	'story' => [
 		'story_published' => 'The story has been published!',
@@ -49,5 +58,8 @@ return [
 		'transfer' => [
 		'success' => 'Transfer successful!',
 		],
+	],
+	'authorship' => [
+		'request_sent' => 'Your authorship request has been sent. Please wait for approval.',
 	],
 ];

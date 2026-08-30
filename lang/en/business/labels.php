@@ -1,12 +1,12 @@
 <?php
 
 return [
+    'business_account' => 'Business account',
     'balance' => 'Balance',
     'overview' => 'Overview',
     'ads' => 'Advertising',
     'marketplace' => 'Marketplace',
     'jobs' => 'Jobs',
-    'affiliate_program' => 'Affiliate program',
     'wallet' => 'Wallet',
     'business_account' => 'Business account',
     'information' => 'Information',
@@ -18,7 +18,7 @@ return [
     'about_account' => 'About account',
     'account_settings' => 'Account settings',
     'more' => 'More',
-    'campaign' => 'Ads',
+    'campaign' => 'Campaign',
     'product' => 'Product',
     'job' => 'Job',
     'service' => 'Service',

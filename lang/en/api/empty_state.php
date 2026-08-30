@@ -2,6 +2,7 @@
 
 return [
 	'empty' => 'There\'s nothing here... Yet!',
+	'no_results' => 'No results found.',
 	'comments' => [
 		'desc' => 'No comments yet.'
 	],
@@ -38,5 +39,11 @@ return [
 	],
 	'settings' => [
 		'social_media' => 'There are no social media links yet.'
+	],
+	'home' => [
+		'posts' => 'Seems that there are no post yet.'
+	],
+	'gifs' => [
+		'desc' => 'No gifs found matching your search.'
 	]
 ];

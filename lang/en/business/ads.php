@@ -2,11 +2,9 @@
 
 return [
 	'index_title' => 'My ads',
-	'index_desc' => 'Here you can view and manage all your ads. Please make sure you read advertising rules and guide.',
 	'create_title' => 'Create new Ad',
 	'edit_title' => 'Edit ad',
 	'show_title' => 'Ad overview',
-	'show_desc' => 'You can view ad details, metrics and manage it here.',
 	'ad_show_stats' => 'Ad show stats',
 	'allocated_budget' => 'Allocated budget',
 	'ad_is_paused' => 'This Ad is currently paused and not visible to the public.',
@@ -41,7 +39,7 @@ return [
 		'create_button' => 'Create Ad',
 		'save_button' => 'Save Ad',
 		'cancel_button' => 'Cancel',
-		'tos_agreement' => 'By publishing an Ad, you agree that all Ads on the platform are visible to all users. <br><br> Also, the advertising of prohibited goods (animals, drugs, weapons, counterfeit goods, and other goods that violate intellectual property rights) is strictly prohibited.',
+		'tos_agreement' => 'By publishing an Ad, you agree that all Ads on the platform are visible to all users. Also, the advertising of prohibited goods (animals, drugs, weapons, counterfeit goods, and other goods that violate intellectual property rights) is strictly prohibited.',
 		'tos_agreement_link' => 'For more details, please see our Advertising Guide.',
 		'media_info' => 'Media Info',
 		'creative' => 'Creative',
