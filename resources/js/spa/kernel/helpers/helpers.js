@@ -9,3 +9,7 @@ window.debounce = (callback, delay = 500) => {
 		callback();
 	}, delay);
 };
+
+window.isStandalone = () => {
+	return window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
+};
