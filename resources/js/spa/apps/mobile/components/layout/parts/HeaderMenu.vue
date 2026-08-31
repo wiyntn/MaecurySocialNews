@@ -3,6 +3,14 @@
 		<div v-on:click.stop="$emit('close')">
 			<div class="mb-4">
 				<ActionSheetGroup>
+					
+					<RouterLink v-bind:to="{ name: 'ads_home_index' }"v-on:click="close">
+						<ActionSheetItem 
+							v-bind:notLast="true" 
+							iconName="settings-01" 
+							v-bind:textLabel="$t('labels.business_account')"
+						></ActionSheetItem>
+					</RouterLink>
 					<RouterLink v-bind:to="{ name: 'bookmarks_index' }">
 						<ActionSheetItem v-bind:notLast="true" iconName="bookmark" v-bind:textLabel="$t('labels.bookmarks')"></ActionSheetItem>
 					</RouterLink>
