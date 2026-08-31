@@ -4,7 +4,7 @@
 			<div class="mb-4">
 				<ActionSheetGroup>
 					
-					<RouterLink v-bind:to="{ name: 'ads_home_index' }"v-on:click="close">
+					<RouterLink v-bind:to="{ name: 'ads_home_index' }">
 						<ActionSheetItem 
 							v-bind:notLast="true" 
 							iconName="settings-01" 
